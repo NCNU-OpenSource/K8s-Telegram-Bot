@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cpu-stress-pod
+spec:
+  containers:
+  - name: cpu-stress-container
+    image: busybox
+    command: ["/bin/sh", "-c", "while true; do :; done"]
+    resources:
+      limits:
+        cpu: "1.2"

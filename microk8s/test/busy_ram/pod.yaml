@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-hog-pod1
+spec:
+  containers:
+    - name: memory-hog1
+      image: tommygood/ram_use1
+      resources:
+        limits:
+          memory: 500Mi  # Set the memory limit to 500MB
+        requests:
+          memory: 500Mi  # Set the initial memory request to 500MB
+

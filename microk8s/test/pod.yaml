@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubernetes-demo-pod-6
+  labels:
+    app: demoApp
+spec:
+  containers:
+    - name: kubernetes-demo-container-6
+      image: hcwxd/purple-whale
+      ports:
+        - containerPort: 3000
+      resources:
+        limits:
+          cpu: "0.1"
+          memory: "100Mi"
