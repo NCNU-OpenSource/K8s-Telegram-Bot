@@ -92,6 +92,7 @@ async def conatinerPerCpuUsage(update,context) :
 # the cpu usage percentage of per container in each namespace
 async def namespacePerPodCpuUsage(update,context) :
     result = run(["python3", f"{home_path}/call_prom.py", '-t', 'namespacePerPodCpuUsage', '-n', 'default'], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    print(result.stdout)
     output_len = int(result.stdout.split(':')[1])
     for i in range(output_len) :
         with open(f'{home_path}/image/output{i}.png', 'rb') as file:
