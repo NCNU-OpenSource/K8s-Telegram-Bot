@@ -7,6 +7,9 @@ from subprocess import call, PIPE, run
 # home path
 home_path = '/home/tommygood/telegram_bot'
 
+# bot token
+token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+
 #
 async def podMemUseInNode(update,context) :
     result = run(["python3", f"{home_path}/call_prom.py", '-t', 'podMemUseInNode'], stdout=PIPE, stderr=PIPE, universal_newlines=True)
@@ -163,7 +166,7 @@ def send_photo(photo_path):
 
 def main():
     # bot token
-    app = ApplicationBuilder().token("6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg").build()
+    app = ApplicationBuilder().token(token).build()
     # all command
     all_command = [['podMemUseInNode', podMemUseInNode], ['eachConatinerMemUsage', eachConatinerMemUsage], ['weirdPodNumInNamespace', weirdPodNumInNamespace], ['runningPodNumInNamespace', runningPodNumInNamespace], ['nodeMemSecTotal', nodeMemSecTotal], ['namespacePerPodCpuUsage', namespacePerPodCpuUsage], ['conatinerPerCpuUsage',conatinerPerCpuUsage], ['conatinerCpuPerSecTotal', conatinerCpuPerSecTotal], ["nodeCpuSecTotal", nodeCpuSecTotal],["hello",hello],["ac",allCommand],["gu",getUser],["au",addUser]]
     for i in range(len(all_command)):
