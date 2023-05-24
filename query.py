@@ -2,10 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import daemon, sys, requests, logging, configparser, logging.handlers
 from subprocess import call, PIPE, run
-
 #from dbConfig import conn,cur
-
-app = ''
 
 # home path
 home_path = '/home/tommygood/telegram_bot'
