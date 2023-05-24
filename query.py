@@ -1,12 +1,14 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-import daemon, sys, requests, logging, os
+import daemon, sys, requests, logging, configparser, logging.handlers
 from subprocess import call, PIPE, run
+
 #from dbConfig import conn,cur
 
 app = ''
-home_path = "/home/tommygood/telegram_bot"
 
+# home path
+home_path = '/home/tommygood/telegram_bot'
 
 #
 async def podMemUseInNode(update,context) :
@@ -172,36 +174,9 @@ def main():
     # run bot
     app.run_polling()
 
-#### log
-# Configure the logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+# run with daemon
+with daemon.DaemonContext():
+    main()
 
-# Create a file handler to save the log to a file
-log_file = "/home/tommygood/telegram_bot/log/daemon.log"
-file_handler = logging.FileHandler(log_file)
-file_handler.setLevel(logging.INFO)
-
-# Create a stream handler to print the log to the console
-console_handler = logging.StreamHandler(sys.stdout)
-console_handler.setLevel(logging.INFO)
-
-# Create a formatter to define the log message format
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-
-# Set the formatter for both handlers
-file_handler.setFormatter(formatter)
-console_handler.setFormatter(formatter)
-
-# Add the handlers to the logger
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
-
- 
-# daemon
-#with daemon.DaemonContext():
-#    logger.info("Daemon started.")
-#    main()
-#    logger.info("Daemon stopped.")
-
-main()
+# run without daemon
+#main()

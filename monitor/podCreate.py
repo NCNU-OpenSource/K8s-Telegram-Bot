@@ -11,10 +11,10 @@ total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInN
 
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
-# 使用者 id
+# chat id
 chat_id="1697361994"
 # message
-message = '789'
+message = ''
 # api url
 url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 

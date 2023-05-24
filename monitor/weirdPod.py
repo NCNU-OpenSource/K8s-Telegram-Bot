@@ -10,14 +10,12 @@ interval = "1h"
 # total metric type
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
-home_path = '/home/tommygood/telegram_bot'
-
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
-# 使用者 id
+# chat id
 chat_id="1697361994"
 # message
-message = '789'
+message = ''
 # api url
 url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 
@@ -27,7 +25,7 @@ def main() :
 
 # send msg to telegram
 def sendMsg(mark) :
-    message = "Pod Not Running Event !" + "\n" + mark + '\n'
+    message = "Pod Not Running Event !" + "\n\n" + mark + '\n'
     #print(message)
     url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
     res = requests.get(url) # this sends the message
@@ -79,8 +77,8 @@ def podWeird() :
 
 # search the reason why pod is not running
 def searchWeirdReason(pod) :
-    # execute command
-    command = f"microk8s kubectl describe pods {pod} | grep Reason"
+    # execute command, the path of microk8s must be absolute path
+    command = f"/snap/bin/microk8s kubectl describe pods {pod} | grep Reason"
     output = subprocess.check_output(command, shell=True, text=True)
     reason = output.split('\n')[0]
     # replace the space

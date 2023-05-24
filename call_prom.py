@@ -1,4 +1,4 @@
-from subprocess import call, PIPE, run
+from subprocess import call, PIPE, run, os
 import cairo, json, datetime, argparse
 import matplotlib.pyplot as plt
 
@@ -6,20 +6,23 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-t", "--type", required = True, help = " : metric type") # get metric type
 ap.add_argument("-n", "--namespace", required = False, help = " : specify namespace") # specify namespace
 args = vars(ap.parse_args())
+
+# prometheus server
+host = 'http://localhost:31111'
+
 # metric type
 metric_type = args['type']
 
 # namespace
 namespace = args['namespace']
 
-# prometheus server
-host = "http://localhost:31111"
 # time range
 interval = "5h"
 
 # total metric type
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
+# home_path 
 home_path = '/home/tommygood/telegram_bot'
 
 def main() :
@@ -27,16 +30,23 @@ def main() :
     if not checkRightMetric() :
         print('this metric is not available !')
         return
+    # search with prometheus
     result = eval(metric_type + "()")
+
     # draw the graph, and output to a png
     #print(result.stdout)
-    # count the length of output png
-    output_len = 0 
+    output_len = 0 # count the length of output png
+
+    # output each result with a png
     for i in range(len(eval(result.stdout))) :
+        # data value
         data = eval(result.stdout)[i]['values']
+        # data metric infomation
         data_metric = list(eval(result.stdout)[i]['metric'].items())
+        # draw the graph with value and infomation
         plot_graph(data, f'{home_path}/image/output{i}.png', metric_type, data_metric)
         output_len += 1
+    # final quantity of data
     print(f'Successfully output, total num of output is :{output_len}')
 
 # check metric available

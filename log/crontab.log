@@ -1,0 +1,6 @@
+Command 'microk8s kubectl describe pods kubernetes-demo-pod-6 | grep Reason' returned non-zero exit status 1.
+Command 'microk8s kubectl describe pods memory-hog-pod | grep Reason' returned non-zero exit status 1.
+Command 'microk8s kubectl describe pods memory-hog-pod1 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s kubectl describe pods kubernetes-demo-pod-6 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s kubectl describe pods kubernetes-demo-pod-6 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s kubectl describe pods kubernetes-demo-pod-6 | grep Reason' returned non-zero exit status 1.
