@@ -17,10 +17,9 @@
 
 <br/>
 <br/>
-然而，我們認為除了上述的方法，若是可以直接使用 telegram 和 k8s cluster 溝通（包含查詢 k8s cluster 狀態、主動發送警告給管理員）會有幾個優點 :
-  <br/>
+
+然而，我們認為除了上述的方法，若是可以直接使用 telegram 和 k8s cluster 溝通（包含查詢 k8s cluster 狀態、主動發送警告給管理員）會有幾個優點 : 
   1. 使用者體驗會更好，因為包含查詢 k8s cluster 狀態、telegram 發送警告，都可以直接藉由 telegram 聊天室傳達。
-  <br/>
   2. 相對使用監控工具來說比較可以客製化要觀察的以及信件的內容。
 
 <br/>
@@ -28,18 +27,43 @@
 
 1. k8s cluster
 
-2. prometheus server
+2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
 
 3. exporter
-      - <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/kube-state-metrics">kube-state-metrics</a>
+      - <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
       - <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
       - cAdvisor
-   
+         - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
+         - ex. `curl https://localhost:10250/metrics`
+
+4. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
+ 
+5. crontab
+
 <h2>Installation</h2>
-1. `git clone`
-2. 
+
+1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
+2. 依據不同的 exporter pod 的 ip, port 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a> : `- targets: ['exporter_ip:port']`
+3. 把<a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/script_config">設定檔</a>內容改為自己的
+   - host : address of prometheus server
+   - token : telegram bot token
+   - chat_id : id of telegram chat room
+      - send a message to bot in telegram
+      - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
+      - and will get a json, the `id` in field `chat` is the chat_id
 
 <h2>Usage</h2>
+
+- start `Query` function with python daemon : `python3 query.py`
+- start `Monitor` function with crontab : 
+   - `crontab -e`
+   
+      ```conf
+      */1 * * * * python3 /path/to/telegram_bot/monitor/podCreate.py
+
+      */60 * * * * python3 /path/to/telegram_bot/monitor/weirdPod.py
+      ```
+<h2>功能介紹</h2>
 <h3>查詢</h3>
 目前有 8 種查詢的種類 : 程式碼都在
 
@@ -141,3 +165,8 @@
       - 藉由得到哪些 pod 被建立的資訊，管理員可以更掌握 cluster 的資訊(ex. pod 建立超過一定量是否會讓 node 資源不夠)
     - 輸出範例
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
+
+<h2>分工</h2>
+
+- 王冠權 : k8s
+- 黃瑜楓 : telegram bot
