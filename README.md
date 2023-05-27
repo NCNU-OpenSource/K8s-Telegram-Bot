@@ -44,13 +44,19 @@
 
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
 2. 依據不同的 exporter pod 的 ip, port 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a> : `- targets: ['exporter_ip:port']`
-3. 把<a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/script_config">設定檔</a>內容改為自己的
-   - host : address of prometheus server
-   - token : telegram bot token
-   - chat_id : id of telegram chat room
-      - send a message to bot in telegram
-      - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
-      - and will get a json, the `id` in field `chat` is the chat_id
+3. 把 script 的 variable 改為自己的設定
+   - 3.1 `query.py` 
+      - home_path : current dir
+      - token : your telegram bot token
+   - 3.2 `call_prom.py`
+      - home_path : current dir
+      - host : address of prometheus server
+   - 3.3 all script in `monitor`
+      - token : your telegram bot token
+      - chat_id : id of telegram chat room
+         - send a message to bot in telegram
+         - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
+         - and will get a json, the `id` in field `chat` is the chat_id
 
 <h2>Usage</h2>
 
