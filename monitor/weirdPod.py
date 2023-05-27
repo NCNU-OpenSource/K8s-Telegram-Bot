@@ -1,6 +1,7 @@
 # monitor whether have pod is not running
 import datetime, requests, subprocess
 from subprocess import call, PIPE, run
+from dbConfig import conn,cur
 
 # prometheus server
 host = "http://localhost:31111"
@@ -13,11 +14,11 @@ total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInN
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
 # chat id
-chat_id="1697361994"
+#chat_id="1697361994"
 # message
-message = ''
+#message = ''
 # api url
-url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
+#url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 
 def main() :
     # status is not normal pod
@@ -27,8 +28,12 @@ def main() :
 def sendMsg(mark) :
     message = "Pod Not Running Event !" + "\n\n" + mark + '\n'
     #print(message)
-    url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
-    res = requests.get(url) # this sends the message
+    sql = "select * from alluser;"
+    cur.execute(sql,())
+    record = cur.fetchall()
+    for i in range(len(record)):
+        url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={record[i][0]}&text={message}"
+        res = requests.get(url) # this sends the message
 
 def podWeird() :
     # set time limit to check whether is a new pod with minute

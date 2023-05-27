@@ -1,5 +1,6 @@
 import datetime, requests
 from subprocess import call, PIPE, run
+from dbConfig import conn,cur
 
 # prometheus server
 host = "http://localhost:31111"
@@ -12,11 +13,11 @@ total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInN
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
 # chat id
-chat_id="1697361994"
+#chat_id="1697361994"
 # message
 message = ''
 # api url
-url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
+#url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 
 def main() :
     # pod create event
@@ -59,8 +60,13 @@ def podCreate() :
             if float(time_limit) > time_interval_min :
                 message = "New Pod Event !" + "\n" + mark + "\n" + 'Pod create time : ' + str(pod_create_time)
                 #print(message)
-                url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
-                res = requests.get(url) # this sends the message
+                sql = "select * from alluser where type=1;"
+                cur.execute(sql,())
+                record = cur.fetchall()
+                print(record)
+                for i in range(len(record)):
+                    url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={record[i][0]}&text={message}"
+                    res = requests.get(url) # this sends the message
                 #print(res.text)
         except :
             data_metric = list(eval(result.stdout)[i]['metric'].items())

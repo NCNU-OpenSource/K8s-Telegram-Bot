@@ -14,16 +14,23 @@ host = 'http://localhost:31111'
 metric_type = args['type']
 
 # namespace
-namespace = args['namespace']
+def getNamespace(namespace) :
+    if namespace == None or namespace == '' :
+        return ''
+    else :
+        return f"namespace='{namespace}'"
+namespace = getNamespace(args['namespace'])
 
 # time range
 interval = "5h"
 
 # total metric type
-total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
+total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'containerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
 # home_path 
 home_path = '/home/tommygood/telegram_bot'
+
+
 
 def main() :
     # check metric available
@@ -66,7 +73,7 @@ def nodeCpuSecTotal() :
 # kube-state exporter 
 
 # total container cpu usage percentage
-def conatinerCpuPerSecTotal() :
+def containerCpuPerSecTotal() :
     # execute command
     #command = 'sum (rate (container_cpu_usage_seconds_total[1m]))'
     #command = 'sum (rate (container_cpu_usage_seconds_total{image!=""}[1m]))'
@@ -80,7 +87,7 @@ def conatinerPerCpuUsage() :
     # execute command
     #command = 'sum(irate(container_cpu_usage_seconds_total[5m])*100)by(pod)'
     #command = 'sum (rate (container_cpu_usage_seconds_total{image!=""}[5m])) by (pod)'
-    command = 'sum(rate(container_cpu_usage_seconds_total{image!=""}[5m])) by (pod, container) / sum(container_spec_cpu_quota{image!=""}/container_spec_cpu_period{image!=""}) by (pod, container) * 100'
+    command = f'sum(rate(container_cpu_usage_seconds_total{{image!="",{namespace}}}[5m])) by (pod, container, namespace) / sum(container_spec_cpu_quota{{image!="", {namespace}}}/container_spec_cpu_period{{image!="", {namespace}}}) by (pod, container, namespace) * 100'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
@@ -102,21 +109,21 @@ def nodeMemSecTotal() :
 # number of running pod in each namespace
 def runningPodNumInNamespace() :
     # execute command
-    command = 'sum(kube_pod_container_status_running) by (namespace)'
+    command = f'sum(kube_pod_container_status_running{{{namespace}}}) by (namespace)'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # number of weird status pod in each namespace
 def weirdPodNumInNamespace() :
     # execute command
-    command = 'sum(kube_pod_container_status_running) by (namespace)'
+    command = f"sum by (namespace) (kube_pod_status_ready{{condition='false', {namespace}}})"
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # the memory usage percent of each container
 def eachConatinerMemUsage() :
     # execute command
-    command = 'sum (container_memory_working_set_bytes) by (container_name , pod ) / (sum (container_spec_memory_limit_bytes>0 ) by (container_name, pod)) * 100'
+    command = f'sum (container_memory_working_set_bytes{{{namespace}}}) by (container_name , pod) / (sum (container_spec_memory_limit_bytes{{{namespace}}}>0 ) by (container_name, pod)) * 100'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
