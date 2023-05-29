@@ -28,7 +28,7 @@ def main() :
 def sendMsg(mark) :
     message = "Pod Not Running Event !" + "\n\n" + mark + '\n'
     #print(message)
-    sql = "select * from alluser;"
+    sql = "select * from all_user;"
     cur.execute(sql,())
     record = cur.fetchall()
     for i in range(len(record)):

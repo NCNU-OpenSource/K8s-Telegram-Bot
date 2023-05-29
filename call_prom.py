@@ -1,5 +1,5 @@
 from subprocess import call, PIPE, run, os
-import cairo, json, datetime, argparse
+import json, datetime, argparse
 import matplotlib.pyplot as plt
 
 ap = argparse.ArgumentParser()

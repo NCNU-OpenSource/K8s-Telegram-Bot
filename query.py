@@ -25,7 +25,7 @@ def connectDB():
 
 # check user 確認使用者是否已註冊
 def checkuser(uid):
-    sql = "select * from alluser where id=%s;"
+    sql = "select * from all_user where uid=%s;"
     conn,cur = connectDB()
     cur.execute(sql,(str(uid),))
     record = cur.fetchall()
@@ -35,18 +35,18 @@ def checkuser(uid):
         return record
 
 # check command 確認使用者可以使用該指令
-def checkcommand(utype,command):
-    sql = "select * from allcommand where name=%s;"
+def checkcommand(permission,command):
+    sql = "select * from all_command where name=%s;"
     conn,cur = connectDB()
     cur.execute(sql,(command,))
     record = cur.fetchall()
-    if utype <= record[0][2]:
+    if permission <= record[0][2]:
         return True
     else:
         return False
 # check namespace 找該使用者的所有namespace
 def checknamespace(uid):
-    sql = "select name from allnamespace where userid=%s;"
+    sql = "select name from all_namespace where uid=%s;"
     conn,cur = connectDB()
     cur.execute(sql,(uid,))
     record = cur.fetchall()
@@ -262,15 +262,15 @@ async def getUser(update,context):
         uid = record[0][0]
         uname = record[0][1]
         utype = record[0][2]
-        await update.message.reply_text("your id: "+uid+" name: "+uname+" permission: "+str(utype))
+        await update.message.reply_text("your id: "+uid+"\nname: "+uname+"\npermission: "+str(utype))
 
 # create user
 async def addUser(update,context):
     record = checkuser(update.message.from_user.id)
     if record==0:
-        sql = "insert into alluser(id,name) values(%s,%s);"
+        sql = "insert into all_user(uid,name,permission) values(%s,%s,%s);"
         conn,cur = connectDB()
-        cur.execute(sql,(str(update.message.from_user.id),str(update.message.from_user.full_name)))
+        cur.execute(sql,(str(update.message.from_user.id),str(update.message.from_user.full_name),3))
         conn.commit()
         await update.message.reply_text("使用者 "+str(update.message.from_user.id)+" 註冊成功")
     else:
@@ -283,7 +283,7 @@ async def allCommand(update,context):
         await update.message.reply_text("user "+str(update.message.from_user.id)+" not registered"+"\n"+"use /au to regist")
     else:
         utype = record[0][2]
-        sql = "select * from allcommand where permission >= %s order by permission desc;"
+        sql = "select * from all_command where permission >= %s order by permission desc;"
         conn,cur = connectDB()
         cur.execute(sql,(utype,))
         record = cur.fetchall()

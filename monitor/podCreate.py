@@ -60,7 +60,7 @@ def podCreate() :
             if float(time_limit) > time_interval_min :
                 message = "New Pod Event !" + "\n" + mark + "\n" + 'Pod create time : ' + str(pod_create_time)
                 #print(message)
-                sql = "select * from alluser where type=1;"
+                sql = "select * from all_user where permission=1;"
                 cur.execute(sql,())
                 record = cur.fetchall()
                 print(record)
