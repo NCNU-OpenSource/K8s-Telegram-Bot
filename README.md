@@ -173,8 +173,7 @@
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
 <h3>資料庫</h3>
-ER MODEL
-- ![](https://hackmd.io/_uploads/HkVco3-I2.png)
+![](https://hackmd.io/_uploads/HkVco3-I2.png)
 
 <h2>分工</h2>
 
