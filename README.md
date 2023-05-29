@@ -179,7 +179,7 @@
    - all_user 記錄使用者資訊
       - uid 使用者的 telegram id
       - name 使用者的 telegram 名稱
-      - permission 使用者權限 (1~3,1(最大)可管理全部 namespace,3(最小))
+      - permission 使用者權限 (1~3，1(最大)可管理全部 namespace，3(最小))
    - all_namespace 記錄使用者可使用哪些 namespace
       - id 流水號
       - uid 使用者的 telegram id
@@ -192,8 +192,8 @@
 <h3>telegram_bot</h3>
    
    - 使用說明
-      - 所有指令最前面都要加"/"
-      - 輸入 /au 註冊後才可使用所有功能
+      - 所有指令最前面都要加 /
+      - 要先輸入 /au 註冊後才可使用所有功能，使用者預設權限是3(最小)
       - 輸入 /gu 可以查看自己的使用者資訊(id,名稱,權限)
       - 輸入 /ac 可以查看自己的權限可使用的指令
 <h2>分工</h2>
