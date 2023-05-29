@@ -173,6 +173,7 @@
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
 <h3>資料庫</h3>
+   
    - schema
       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/103d577c-4f7c-4733-8c2c-be4869beebb7)
    - all_user 記錄使用者資訊
@@ -189,6 +190,7 @@
       - permission 指令權限
 
 <h3>telegram_bot</h3>
+   
    - 使用說明
       - 所有指令最前面都要加"/"
       - 輸入 /au 註冊後才可使用所有功能
