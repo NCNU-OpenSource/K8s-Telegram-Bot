@@ -173,7 +173,7 @@
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
 <h3>資料庫</h3>
-![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/6be87097-aeb7-45fa-be83-0d2cf8f2e3b7)
+![](https://hackmd.io/_uploads/HkVco3-I2.png)
 
 <h2>分工</h2>
 
