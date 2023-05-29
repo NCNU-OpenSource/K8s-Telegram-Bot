@@ -173,7 +173,21 @@
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
 <h3>資料庫</h3>
-![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/103d577c-4f7c-4733-8c2c-be4869beebb7)
+
+   - schema
+      - ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/103d577c-4f7c-4733-8c2c-be4869beebb7)
+   - all_user 記錄使用者資訊
+      - uid 使用者的 telegram id
+      - name 使用者的 telegram 名稱
+      - permission 使用者權限 (1~3,1(最大)可管理全部 namespace,3(最小))
+   - all_namespace 記錄使用者可使用哪些 namespace
+      - id 流水號
+      - uid 使用者的 telegram id
+      - name namespace 的名稱
+   - all_command 記錄指令資訊
+      - name 指令名稱
+      - content 指令說明
+      - permission 指令權限
 
 <h2>分工</h2>
 
