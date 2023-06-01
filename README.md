@@ -28,17 +28,26 @@
 1. k8s cluster
 
 2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
+   - `cd microk8s/prometheus`
+   - `kubectl apply -f .`
 
 3. exporter
-      - <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
-      - <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
-      - cAdvisor
+      1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
+         - `cd microk8s/kube-state-metrics`
+         - `kubectl apply -f .`
+      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
+         - `cd microk8s/node_exporter`
+         - `kubectl apply -f .`
+      3. cAdvisor
          - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
          - ex. `curl https://localhost:10250/metrics`
 
 4. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
  
 5. crontab
+
+6. python3
+   - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
 
 <h2>Installation</h2>
 
@@ -51,12 +60,17 @@
    - 3.2 `call_prom.py`
       - home_path : current dir
       - host : address of prometheus server
-   - 3.3 all script in `monitor`
+   - 3.3 `monitor/podCreate.py`
       - token : your telegram bot token
       - chat_id : id of telegram chat room
          - send a message to bot in telegram
          - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
          - and will get a json, the `id` in field `chat` is the chat_id
+   - 3.4 `monitor/podCreate.py`
+      - token : your telegram bot token
+      - chat_id : id of telegram chat room
+      - kubectl_path : path of kubectl
+         - `whereis kubectl`
 
 <h2>Usage</h2>
 
@@ -176,18 +190,25 @@
    
    - schema
       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/103d577c-4f7c-4733-8c2c-be4869beebb7)
-   - all_user 記錄使用者資訊
-      - uid 使用者的 telegram id
-      - name 使用者的 telegram 名稱
-      - permission 使用者權限 (1~3，1(最大)可管理全部 namespace，3(最小))
-   - all_namespace 記錄使用者可使用哪些 namespace
-      - id 流水號
-      - uid 使用者的 telegram id
-      - name namespace 的名稱
-   - all_command 記錄指令資訊
-      - name 指令名稱
-      - content 指令說明
-      - permission 指令權限
+   
+   - table
+      - `all_user` : 記錄使用者資訊
+         - `uid` : 使用者的 telegram id
+         - `name` : 使用者的 telegram 名稱
+         - `permission` : 使用者權限（1 ~ 3）
+            - 1 : 可管理 cluster 內全部的 namespace
+            - 2 : 依照 table `all_namespace`，區分可以管理哪些 namespace
+            - 3 : 無權限
+      
+      - `all_namespace` : 記錄使用者可使用哪些 namespace
+         - `id` : 流水號
+         - `uid` : 使用者的 telegram id
+         - `name` : namespace 的名稱
+      
+      - `all_command` : 記錄指令資訊
+         - `name` : 指令名稱
+         - `content` : 指令說明
+         - `permission` : 指令權限
 
 <h3>telegram_bot</h3>
    
@@ -196,7 +217,3 @@
       - 要先輸入 /au 註冊後才可使用所有功能，使用者預設權限是3(最小)
       - 輸入 /gu 可以查看自己的使用者資訊(id,名稱,權限)
       - 輸入 /ac 可以查看自己的權限可使用的指令
-<h2>分工</h2>
-
-- 王冠權 : k8s
-- 黃瑜楓 : telegram bot
