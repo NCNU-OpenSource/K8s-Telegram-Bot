@@ -13,6 +13,10 @@ total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInN
 
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+
+# path of kubectl
+kubectl_path = "/snap/bin/microk8s.kubectl"
+
 # chat id
 #chat_id="1697361994"
 # message
@@ -82,8 +86,8 @@ def podWeird() :
 
 # search the reason why pod is not running
 def searchWeirdReason(pod) :
-    # execute command, the path of microk8s must be absolute path
-    command = f"/snap/bin/microk8s kubectl describe pods {pod} | grep Reason"
+    # execute command, the path of kubectl must be absolute path
+    command = f"{kubectl_path} describe pods {pod} | grep Reason"
     output = subprocess.check_output(command, shell=True, text=True)
     reason = output.split('\n')[0]
     # replace the space
