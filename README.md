@@ -33,14 +33,20 @@
 
 3. exporter
       1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
-         - `cd microk8s/kube-state-metrics`
-         - `kubectl apply -f .`
+         - on master node
+         - install
+            - `cd microk8s/kube-state-metrics` 
+            - `kubectl apply -f .`
       2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
-         - `cd microk8s/node_exporter`
-         - `kubectl apply -f .`
+         - on master + worker node
+         - install
+            - `cd microk8s/node_exporter`
+            - `kubectl apply -f .`
       3. cAdvisor
-         - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
-         - ex. `curl https://localhost:10250/metrics`
+         - on master + worker node
+         - isntall
+            - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
+            - ex. `curl https://localhost:10250/metrics`
 
 4. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
  
