@@ -25,54 +25,76 @@
 <br/>
 <h2>Prerequisite</h2>
 
-1. k8s cluster
+1. a k8s cluster
+   - ex. microk8s
+   - install microk8s
+      - `snap install microk8s --classic`
 
 2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
-   - `cd microk8s/prometheus`
-   - `kubectl apply -f .`
+   - on single master node in k8s cluster
+   - install
+      - `cd microk8s/prometheus`
+      - `kubectl apply -f .`
 
 3. exporter
       1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
-         - on master node
+         - on single master node in k8s cluster
          - install
             - `cd microk8s/kube-state-metrics` 
             - `kubectl apply -f .`
       2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
-         - on master + worker node
+         - on each nodes in k8s cluster
          - install
             - `cd microk8s/node_exporter`
             - `kubectl apply -f .`
       3. cAdvisor
-         - on master + worker node
-         - isntall
+         - on each nodes in k8s cluster
+         - install
             - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
             - ex. `curl https://localhost:10250/metrics`
-
-4. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
  
-5. crontab
+4. crontab
+   - on single master node in k8s cluster
 
-6. python3
-   - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
+5. python3
+   - on single master node in k8s cluster
 
 <h2>Installation</h2>
 
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
-2. 依據不同的 exporter pod 的 ip, port 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a> : `- targets: ['exporter_ip:port']`
-3. 把 script 的 variable 改為自己的設定
-   - 3.1 `query.py` 
+   - on single master node in k8s cluster
+2. install the python plugins will be used
+   - on each nodes in k8s cluster
+   - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
+3. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
+   - on single master node in k8s cluster
+   - installation
+      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
+         - view the latest version first
+
+<h2>Configuration</h2>
+
+1. 依據不同的 <b>exporter</b> 的 ip, port 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a>，新增或編輯在 `scrape_configs:` 下：
+   ```
+   - job_name: 'exporter_name'
+      static_configs: 
+      - targets: ['exporter_ip:exporter_port']
+   ```
+
+2. 把 script 的 variable 改為自己的設定
+   - 2.1 `query.py` 
       - home_path : current dir
       - token : your telegram bot token
-   - 3.2 `call_prom.py`
+   - 2.2 `call_prom.py`
       - home_path : current dir
       - host : address of prometheus server
-   - 3.3 `monitor/podCreate.py`
+   - 2.3 `monitor/podCreate.py`
       - token : your telegram bot token
       - chat_id : id of telegram chat room
          - send a message to bot in telegram
          - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
          - and will get a json, the `id` in field `chat` is the chat_id
-   - 3.4 `monitor/podCreate.py`
+   - 2.4 `monitor/podCreate.py`
       - token : your telegram bot token
       - chat_id : id of telegram chat room
       - kubectl_path : path of kubectl
