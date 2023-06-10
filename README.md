@@ -88,13 +88,19 @@
    - 2.2 `call_prom.py`
       - home_path : current dir
       - host : address of prometheus server
-   - 2.3 `monitor/podCreate.py`
+   - 2.3 `deployWordpress.py`
+      - ip : address of your host
+      - token : your telegram bot token
+      - home_path : current dir
+      - config_path : path of k8s client.config (path of microk8s installed by snap is "/var/snap/microk8s/current/credentials/client.config")
+      - kubctl_path : path of kubectl
+   - 2.4 `monitor/podCreate.py`
       - token : your telegram bot token
       - chat_id : id of telegram chat room
          - send a message to bot in telegram
          - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
          - and will get a json, the `id` in field `chat` is the chat_id
-   - 2.4 `monitor/podCreate.py`
+   - 2.5 `monitor/podCreate.py`
       - token : your telegram bot token
       - chat_id : id of telegram chat room
       - kubectl_path : path of kubectl
@@ -117,6 +123,9 @@
 
 `call_prom.py`，不同功能用不同 function 區分。
 <br/>
+使用情境:
+![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f65640f2-36bf-4a52-a09d-bb71d2ed74e6)
+
 1. `podMemUseInNode`
     - 介紹
         - node 上部屬的全部的 pod 所佔 node 的 memory 的百分比
@@ -213,6 +222,16 @@
       - 藉由得到哪些 pod 被建立的資訊，管理員可以更掌握 cluster 的資訊(ex. pod 建立超過一定量是否會讓 node 資源不夠)
     - 輸出範例
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
+
+<h3>部屬WordPress</h3>
+
+- 程式碼在`deployWordpress.py`
+- 當使用者透過 telegam bot 依序輸入 deployment 的 App name, namespace 的名稱, replicas 的數量後會呼叫`deployWordpress.py`進行部屬
+`deployWordpress.py`包含建立 deployment 和 service
+- 會讀取建立好的`wp_deploy.yaml`和`wp_service.yaml`，再把 App name, namespace, replicas 改成使用者傳給 telegram bot 的資訊，並部署 WordPress
+- 部署完成後會回傳 WordPress 的網址
+
+![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f9c0c917-3e08-4de3-b3c7-80ecb5f81906)
 
 <h3>資料庫</h3>
    
