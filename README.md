@@ -245,3 +245,5 @@
       - 要先輸入 /au 註冊後才可使用所有功能，使用者預設權限是3(最小)
       - 輸入 /gu 可以查看自己的使用者資訊(id,名稱,權限)
       - 輸入 /ac 可以查看自己的權限可使用的指令
+      ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/bc4adf9d-fb56-4f39-adfd-09847f3760d9)
+
