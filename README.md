@@ -124,7 +124,7 @@
 `call_prom.py`，不同功能用不同 function 區分。
 <br/>
 使用情境:
-![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f65640f2-36bf-4a52-a09d-bb71d2ed74e6)
+   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f65640f2-36bf-4a52-a09d-bb71d2ed74e6)
 
 1. `podMemUseInNode`
     - 介紹
@@ -233,8 +233,7 @@
    - service
       - 讀取`wp_service.yaml`，找出未被使用的 nodePort 設為 service 的 nodePort
 - 部署 WordPress，完成後會回傳 WordPress 的網址
-
-![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f9c0c917-3e08-4de3-b3c7-80ecb5f81906)
+   - ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/b61095f6-c1bc-4060-9bc1-a67ed002facf)
 
 <h3>資料庫</h3>
    
