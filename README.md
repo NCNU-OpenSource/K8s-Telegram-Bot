@@ -228,8 +228,10 @@
 - 程式碼在`deployWordpress.py`
 - 當使用者透過 telegam bot 依序輸入 deployment 的 App name, namespace 的名稱, replicas 的數量後會呼叫`deployWordpress.py`進行部屬
 - `deployWordpress.py`包含建立 deployment 和 service
-- 讀取建立好的`wp_deploy.yaml`，把 App name, namespace, replicas 改成使用者傳給 telegram bot 的資訊
-- 讀取建立好的`wp_service.yaml`，找出未被使用的 nodePort 設為 service 的 nodePort
+   - deployment
+      - 讀取`wp_deploy.yaml`，把 App name, namespace, replicas 改成使用者傳給 telegram bot 的資訊
+   - service
+      - 讀取`wp_service.yaml`，找出未被使用的 nodePort 設為 service 的 nodePort
 - 部署 WordPress，完成後會回傳 WordPress 的網址
 
 ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f9c0c917-3e08-4de3-b3c7-80ecb5f81906)
