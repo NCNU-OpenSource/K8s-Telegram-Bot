@@ -131,7 +131,7 @@
 
 2. `podMemUseInNode`
     - 介紹
-        - node 上部屬的全部的 pod 所佔 node 的 memory 的百分比
+        - 各個 node 上部屬的全部的 pod 所 request 的 memory 和 node 的 memory 的百分比
     - 理由
         - 因為如果 node 上的 memory 空間不夠，可能造成 pod eviction。
         - 所以當 node 空間不夠，可以透過嘗試刪減 pod 來獲取 memory，而此功能就可以讓使用者較直觀的觀察 pod 和 node 的 memory 關係。
