@@ -259,6 +259,17 @@
          - `name` : 指令名稱
          - `content` : 指令說明
          - `permission` : 指令權限
+      
+      - `all_wordpress` : 記錄建立的 WordPress 資訊
+         - `id` : 流水號
+         - `uid` : 使用者的 telegram id
+         - `app_name` : deployment 的 App name
+         - `namespace` : namespace 的名稱
+         - `replicas` : replicas 的數量
+       
+       - `k8s_namespace` : 記錄 k8s 中的 namespace
+         - `id` : 流水號
+         - `namespace` : namespace 的名稱
 
 <h3>telegram_bot</h3>
    
