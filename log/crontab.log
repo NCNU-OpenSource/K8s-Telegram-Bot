@@ -30,3 +30,41 @@ wqeq
 [('1697361994', 'tommy good', 1), ('5740033148', '瑜楓 黃', 1)]
 [('1697361994', 'tommy good', 1), ('5740033148', '瑜楓 黃', 1)]
 [('1697361994', 'tommy good', 1), ('5740033148', '瑜楓 黃', 1)]
+[('1697361994', 'tommy good', 1)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+Command '/snap/bin/microk8s.kubectl describe pods 574003314812-54cc8c65-bchq9 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods 574003314812-54cc8c65-dnzt9 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods 574003314812-54cc8c65-z56tj | grep Reason' returned non-zero exit status 1.
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+Command '/snap/bin/microk8s.kubectl describe pods 574003314812-54cc8c65-rvrtx | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods calico-node-lps5p | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods calico-node-pqqzn | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods node-exporter-7bfql | grep Reason' returned non-zero exit status 1.
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0)]
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]

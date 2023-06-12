@@ -78,7 +78,7 @@ def containerCpuPerSecTotal() :
     #command = 'sum (rate (container_cpu_usage_seconds_total[1m]))'
     #command = 'sum (rate (container_cpu_usage_seconds_total{image!=""}[1m]))'
     # percertange
-    command = 'sum (rate (container_cpu_usage_seconds_total{id="/"}[1m])) / sum (machine_cpu_cores) * 100'
+    command = 'sum (rate (container_cpu_usage_seconds_total{id="/"}[20m])) / sum (machine_cpu_cores) * 100'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
@@ -130,7 +130,9 @@ def eachConatinerMemUsage() :
 # the percent of pod memory use on the node deploying it 
 def podMemUseInNode() :
     # execute command
-    command = 'sum(kube_pod_container_resource_limits{resource="memory"}) / sum(kube_node_status_capacity{resource="memory"}) * 100'
+    #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) / sum(kube_node_status_capacity{resource="memory"}) * 100'
+    #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) by (node) / sum(kube_node_status_capacity{resource="memory"}) by (node) * 100'
+    command = 'sum(kube_pod_container_resource_requests{resource="memory"}) by (node)  / sum(kube_node_status_capacity{resource="memory"}) by (node)'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 

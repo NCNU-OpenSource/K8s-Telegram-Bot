@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: node-exporter-service
   namespace: kube-system
+  labels:
+    app: node-exporter
+
 spec:
   selector:
     app: node-exporter

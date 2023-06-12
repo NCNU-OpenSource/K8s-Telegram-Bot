@@ -18,10 +18,14 @@ data:
     - job_name: 'kube-state-server-metrics'
       static_configs: 
       - targets: ['10.152.183.36:8081']
-    - job_name: 'node-metrics'
-      static_configs: 
-      - targets: ['10.152.183.254:80']
     - job_name: 'cAdvisor'
       metrics_path: /metrics/cadvisor
       static_configs: 
-      - targets: ['10.1.221.192:10255']
+      - targets: ['10.1.221.192:10255', '10.1.12.193:10255']
+    - job_name: 'node-exporter'
+      kubernetes_sd_configs:
+      - role: endpoints
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_endpoints_name]
+        regex: 'node-exporter-service'
+        action: keep

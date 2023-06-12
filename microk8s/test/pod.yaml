@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: kubernetes-demo-pod-6
   labels:
-    app: demoApp
+    app: service-test
 spec:
   containers:
     - name: kubernetes-demo-container-6
