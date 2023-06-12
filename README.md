@@ -25,56 +25,48 @@
 <br/>
 <h2>Prerequisite</h2>
 
-1. a k8s cluster
+1. k8s cluster
    - ex. microk8s
-   - install microk8s
-      - `snap install microk8s --classic`
-
-2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
-   - on single master node in k8s cluster
-   - install
-      - `cd microk8s/prometheus`
-      - `kubectl apply -f .`
-
-3. exporter
-      1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
-         - on single master node in k8s cluster
-         - install
-            - `cd microk8s/kube-state-metrics` 
-            - `kubectl apply -f .`
-      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
-         - on each nodes in k8s cluster
-         - install
-            - `cd microk8s/node_exporter`
-            - `kubectl apply -f .`
-      3. cAdvisor
-         - on each nodes in k8s cluster
-         - install
-            - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port，可以檢查看看。
-            - ex. `curl https://localhost:10250/metrics`
- 
-4. crontab
-   - on single master node in k8s cluster
-
-5. python3
-   - on single master node in k8s cluster
+      - install microk8s
+         - `snap install microk8s --classic`
+2. crontab
+3. python3
 
 <h2>Installation</h2>
 
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
-   - on single master node in k8s cluster
 2. install the python plugins will be used
-   - on each nodes in k8s cluster
    - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
 3. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
-   - on single master node in k8s cluster
    - installation
       - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
          - view the latest version first
+4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
+   - install
+      - `cd microk8s/prometheus`
+      - `kubectl apply -f .`
+5. exporter
+      1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
+         - export the <b>all</b> metrics of cluster
+         - install
+            - `cd microk8s/kube-state-metrics` 
+            - `kubectl apply -f .`
+      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
+         - export the metrics of <b>each</b> node
+         - install
+            - `cd microk8s/node_exporter`
+            - `kubectl apply -f .`
+      3. cAdvisor
+         - export the metrics of containers on <b>each</b> node
+         - install
+            - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port
+            - `curl https://localhost:10250/metrics`
+         - note : 需要去 cluster 中<b>每一個</b> node 檢查
+
 
 <h2>Configuration</h2>
 
-1. 依據不同的 <b>exporter</b> 的 ip, port 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a>，新增或編輯在 `scrape_configs:` 下：
+1. 依據不同的 <b>exporter</b> 的 <b>ip</b>, <b>port</b> 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a>，新增或編輯在 `scrape_configs:` 下：
    ```
    - job_name: 'exporter_name'
       static_configs: 
@@ -127,45 +119,8 @@
    
    ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f65640f2-36bf-4a52-a09d-bb71d2ed74e6)
 
-1. `podMemUseInNode`
-    - 介紹
-        - node 上部屬的全部的 pod 所佔 node 的 memory 的百分比
-    - 理由
-        - 因為如果 node 上的 memory 空間不夠，可能造成 pod eviction。
-        - 所以當 node 空間不夠，可以透過嘗試刪減 pod 來獲取 memory，而此功能就可以讓使用者較直觀的觀察 pod 和 node 的 memory 關係。
-    - 輸出範例
-        - ![](https://hackmd.io/_uploads/SyxlkaRYHh.png)
 
-2. `eachConatinerMemUsage`
-    - 介紹
-        - 各個 container 佔用了多少其限制的 memory 的百分比
-    - 理由
-        - 如果 container 佔用的 memory 百分比太高，可能會影響使用者體驗，此時管理者可以考慮多開幾個 replica
-    - 輸出範例
-        - ![](https://hackmd.io/_uploads/Bk_3eycSh.png)
-        - 會顯示是哪一個 pod
-     
- 3.  `weirdPodNumInNamespace`
-     - 介紹
-        - 各個 namespace 不正常 pod 的數量
-      - 理由
-        - 當有 pod 的狀態不正常，k8s 會嘗試重啟 pod，可能會成功或失敗。 
-        - 可以觀察不同時間段各個 namespace 有多少不正常運作的 pod，再去找出造成 pod 不正常的真正原因，避免再次發生。
-      - 輸出範例
-        - ![](https://hackmd.io/_uploads/ry1_7J5H2.png)
-        - 會顯示是哪一個 namespace
-
-4. `runningPodNumInNamespace`
-    - 介紹
-        - 各個 namespace 不同時間有多少 pod 同時執行
-    - 理由
-        - 有時 pod 可能因為 auto scaling 而自動被建立或刪除，所以管理員可以藉由掌握不同時間段的 pod 數量，進而得知資源被使用的情形（ex. 哪些 pod 比較常被使用），再去判斷此 pod 是否需要轉移到資源較好的 node 上部屬會較穩定。
-            - auto scaling : k8s 可以有偵測到 pod 的資源若超過一定的使用上限時就會增加 pod 的 replica，藉以讓 pod 正常運作，因為有更多資源可以分配
-    - 輸出範例
-        - ![](https://hackmd.io/_uploads/Hkk0m1qH3.png)
-        - 會顯示是哪一個 namespace
-
-5. `nodeMemSecTotal` 
+1. `nodeMemSecTotal` 
     - 介紹
         - k8s cluster 中的所有 node 的各別已使用的 memory 的百分比
     - 理由
@@ -174,7 +129,25 @@
         - ![](https://hackmd.io/_uploads/BkviPk5Sh.png) 
         - 可以藉由 instance(node metric) ip 區別是哪一台 node
 
-6. `nodeCpuSecTotal`
+2. `podMemUseInNode`
+    - 介紹
+        - node 上部屬的全部的 pod 所佔 node 的 memory 的百分比
+    - 理由
+        - 因為如果 node 上的 memory 空間不夠，可能造成 pod eviction。
+        - 所以當 node 空間不夠，可以透過嘗試刪減 pod 來獲取 memory，而此功能就可以讓使用者較直觀的觀察 pod 和 node 的 memory 關係。
+    - 輸出範例
+        - ![](https://hackmd.io/_uploads/SyxlkaRYHh.png)
+
+3. `eachConatinerMemUsage`
+    - 介紹
+        - 各個 container 佔用了多少其限制的 memory 的百分比
+    - 理由
+        - 如果 container 佔用的 memory 百分比太高，可能會影響使用者體驗，此時管理者可以考慮多開幾個 replica
+    - 輸出範例
+        - ![](https://hackmd.io/_uploads/Bk_3eycSh.png)
+        - 會顯示是哪一個 pod
+
+4. `nodeCpuSecTotal`
     - 介紹
         - k8s cluster 中所有 node 的各別已使用的 cpu 的百分比
     - 理由
@@ -184,21 +157,41 @@
         - ![](https://hackmd.io/_uploads/rJkRuy5Hh.png)
         - 可以藉由 instance(node metric) ip 區別是哪一台 node
 
-7. `conatinerCpuPerSecTotal`
+5. `conatinerCpuPerSecTotal`
     - 介紹
         - k8s cluster 中<b>所有</b>的 container 正在使用的<b>所有</b> node 的 cpu 的百分比
     - 理由
         - 藉由觀察 cluster 內全部的 container 使用的 cpu 百分比，可以決定是否要不要再此 k8s cluster 新增 or 刪除 node 數量來達到資源最有效的運用
     - 輸出範例
         - ![](https://hackmd.io/_uploads/SJF8h1cSh.png)
-
-8. `conatinerPerCpuUsage`
+  
+ 6. `conatinerPerCpuUsage`
     - 介紹
         - 不同 container 使用了多少其限制的 cpu 的百分比
     - 理由
         - 藉由觀察單個 container 的 cpu 使用率，可以去決定是否要把此 container 的 cpu request 調整，讓全部 container 能使用的 cpu 資源最大化。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/ByB9RJcr3.png)
+ 
+ 7. `runningPodNumInNamespace`
+    - 介紹
+        - 各個 namespace 不同時間有多少 pod 同時執行
+    - 理由
+        - 有時 pod 可能因為 auto scaling 而自動被建立或刪除，所以管理員可以藉由掌握不同時間段的 pod 數量，進而得知資源被使用的情形（ex. 哪些 pod 比較常被使用），再去判斷此 pod 是否需要轉移到資源較好的 node 上部屬會較穩定。
+            - auto scaling : k8s 可以有偵測到 pod 的資源若超過一定的使用上限時就會增加 pod 的 replica，藉以讓 pod 正常運作，因為有更多資源可以分配
+    - 輸出範例
+        - ![](https://hackmd.io/_uploads/Hkk0m1qH3.png)
+        - 會顯示是哪一個 namespace
+ 
+ 8.  `weirdPodNumInNamespace`
+     - 介紹
+        - 各個 namespace 不正常 pod 的數量
+      - 理由
+        - 當有 pod 的狀態不正常，k8s 會嘗試重啟 pod，可能會成功或失敗。 
+        - 可以觀察不同時間段各個 namespace 有多少不正常運作的 pod，再去找出造成 pod 不正常的真正原因，避免再次發生。
+      - 輸出範例
+        - ![](https://hackmd.io/_uploads/ry1_7J5H2.png)
+        - 會顯示是哪一個 namespace
 
 <h3>自動監測通報</h3>
 目前會依照 2 種不同的情況去監測，程式碼都在
