@@ -163,7 +163,7 @@
     - 理由
         - 藉由觀察 cluster 內全部的 container 使用的 cpu 百分比，可以決定是否要不要再此 k8s cluster 新增 or 刪除 node 數量來達到資源最有效的運用
     - 輸出範例
-        - ![](https://hackmd.io/_uploads/SJF8h1cSh.png)
+        - ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/96759292/f580a539-6312-4fbd-8aae-9ae7c0cf06e1)
   
  6. `conatinerPerCpuUsage`
     - 介紹
