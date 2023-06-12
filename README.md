@@ -239,7 +239,7 @@
 <h3>資料庫</h3>
    
    - schema
-      ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/103d577c-4f7c-4733-8c2c-be4869beebb7)
+      ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/c991702e-48f7-4887-a183-41e9b80c4945)
    
    - table
       - `all_user` : 記錄使用者資訊
