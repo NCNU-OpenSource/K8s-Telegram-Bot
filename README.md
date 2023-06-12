@@ -267,7 +267,7 @@
          - `namespace` : namespace 的名稱
          - `replicas` : replicas 的數量
        
-       - `k8s_namespace` : 記錄 k8s 中的 namespace
+       - `k8s_namespace` : 記錄 k8s cluster 中所有的 namespace
          - `id` : 流水號
          - `namespace` : namespace 的名稱
 
