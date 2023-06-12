@@ -142,7 +142,7 @@
     - 介紹
         - 各個 container 佔用了多少其限制的 memory 的百分比
     - 理由
-        - 如果 container 佔用的 memory 百分比太高，可能會影響使用者體驗，此時管理者可以考慮多開幾個 replica
+        - 如果 container 佔用的 memory 百分比太高，可能是特殊狀況（被植入挖礦軟體），或是單純該應用程式就會佔用較多的 ram，此時管理者可以因應狀況處理。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/Bk_3eycSh.png)
         - 會顯示是哪一個 pod
