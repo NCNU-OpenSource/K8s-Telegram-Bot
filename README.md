@@ -40,6 +40,7 @@
          - `MicroK8s v1.26.5 revision 5395`
 2. crontab
 3. python3
+4. mysql/mariadb
 
 <h2>Installation</h2>
 
@@ -75,7 +76,6 @@
             - `curl https://localhost:10250/metrics`
          - note : 需要去 cluster 中<b>每一個</b> node 檢查
 
-
 <h2>Configuration</h2>
 
 1. 依據不同的 <b>exporter</b> 的 <b>ip</b>, <b>port</b> 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a>，新增或編輯在 `scrape_configs:` 下：
@@ -106,6 +106,9 @@
    - 2.5 `monitor/weirdPod.py`
       - token : your telegram bot token
       - kubectl_path : path of kubectl
+
+3. dump `schema.sql` into database
+   - `mysql -u root -p telegram_db < backup.sql`
 
 <h2>Usage</h2>
 
