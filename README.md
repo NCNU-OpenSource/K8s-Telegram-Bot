@@ -220,16 +220,29 @@
     - 輸出範例
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
-<h3>部屬WordPress</h3>
+<h3>部署 WordPress</h3>
 
-- 程式碼在`deployWordpress.py`
-- 當使用者透過 telegam bot 依序輸入 deployment 的 App name, namespace 的名稱, replicas 的數量後會呼叫`deployWordpress.py`進行部屬
-- `deployWordpress.py`包含建立 deployment 和 service
-   - deployment
-      - 讀取`wp_deploy.yaml`，把 App name, namespace, replicas 改成使用者傳給 telegram bot 的資訊
-   - service
-      - 讀取`wp_service.yaml`，找出未被使用的 nodePort 設為 service 的 nodePort
-- 部署 WordPress，完成後會回傳 WordPress 的網址
+- 介紹
+   - 程式碼在`deployWordpress.py`
+   - 當使用者透過 telegam bot 依序輸入 deployment 的 App name, namespace 的名稱, replicas 的數量後會呼叫`deployWordpress.py`進行部署
+   - `deployWordpress.py`包含建立 deployment 和 service
+      - deployment
+         - 讀取`wp_deploy.yaml`，把 App name, namespace, replicas 改成使用者傳給 telegram bot 的資訊
+            - `wp_deploy.yaml` : 包含 WordPress container 的設定
+      - service
+         - 讀取`wp_service.yaml`，找出未被使用的 nodePort 設為 service 的 nodePort
+            - `wp_service.yaml` : 用 nodePort type 的 service 綁定剛剛建立的 deployment 的 pod
+   - 部署 WordPress，完成後會回傳 WordPress 的網址
+
+- 使用說明
+   - 必須按照步驟依序輸入 deployment 的 App Name, namepsace 的名稱, replicas 數量
+   - 如果部署過程中要取消或重新部屬，可以輸入`/clear`清除記錄
+   - 部署步驟<br>
+      I. `/cw` 開始部署 WordPress<br>
+      II. `/app App名稱` 輸入 deployment 的 App name<br>
+      III. `/ns namespace名稱` WordPress 要建在哪個 namespace 下<br>
+      IV. `/rs replicas數量` deployment 的 replicas 數量(1~3)<br>
+      V. 部署完成<br>
    ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/b61095f6-c1bc-4060-9bc1-a67ed002facf)
 
 <h3>資料庫</h3>
