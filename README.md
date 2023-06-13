@@ -108,7 +108,7 @@
       - kubectl_path : path of kubectl
 
 3. dump `schema.sql` into database
-   - `mysql -u root -p telegram_db < backup.sql`
+   - `mysql -u root -p telegram_db < schema.sql`
 
 <h2>Usage</h2>
 
