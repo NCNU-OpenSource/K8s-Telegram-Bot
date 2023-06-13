@@ -56,17 +56,20 @@
       - `kubectl apply -f .`
 5. exporter
       1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
-         - export the <b>all</b> metrics of cluster
+         - export the <b>all</b> metrics of k8s cluster
+            - include the pod numbers, status and abnoraml reasons...
          - install
             - `cd microk8s/kube-state-metrics` 
             - `kubectl apply -f .`
-      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter"> node exporter</a>
+      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter">node exporter</a>
          - export the metrics of <b>each</b> node
+            - include memory, cpu and storage status
          - install
             - `cd microk8s/node_exporter`
             - `kubectl apply -f .`
       3. cAdvisor
          - export the metrics of containers on <b>each</b> node
+            - include the usage of resource on containers
          - install
             - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port
             - `curl https://localhost:10250/metrics`
@@ -130,6 +133,7 @@
         - k8s cluster 中的所有 node 的各別已使用的 memory 的百分比
     - 理由
         - 當 node 的 memory 不夠時，如果還繼續在此 node 上部屬 pod，可能會造成 pod eviction。
+            - pod eviction : 當 k8s cluster 中的 node 資源不夠時，pod 會被從此 node 中移除。
         - 此時可以考慮多新增幾台 node 到 k8s cluster 中，或是降低 replica 的數量等方式解決。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/BkviPk5Sh.png) 
