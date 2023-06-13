@@ -87,14 +87,9 @@
       - config_path : path of k8s client.config (path of microk8s installed by snap is "/var/snap/microk8s/current/credentials/client.config")
       - kubctl_path : path of kubectl
    - 2.4 `monitor/podCreate.py`
+      - token : your telegram bot token  
+   - 2.5 `monitor/weirdPod.py`
       - token : your telegram bot token
-      - chat_id : id of telegram chat room
-         - send a message to bot in telegram
-         - get `https://api.telegram.org/bot{Your_Token}/getUpdates` : change {Your_Token} to your telegram bot token
-         - and will get a json, the `id` in field `chat` is the chat_id
-   - 2.5 `monitor/podCreate.py`
-      - token : your telegram bot token
-      - chat_id : id of telegram chat room
       - kubectl_path : path of kubectl
          - `whereis kubectl`
 
