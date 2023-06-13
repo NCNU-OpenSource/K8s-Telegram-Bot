@@ -118,16 +118,17 @@
 
 目前有 8 種查詢的種類 : 在 `call_prom.py`，不同功能用不同 function 區分。
 <br/>
+<br/>
 使用情境:
    
-   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f65640f2-36bf-4a52-a09d-bb71d2ed74e6)
-
+   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/96759292/9c532914-eb91-40b9-a99b-8df56a49eff6)
 
 1. `nodeMemSecTotal` 
     - 介紹
         - k8s cluster 中的所有 node 的各別已使用的 memory 的百分比
     - 理由
         - 當 node 的 memory 不夠時，如果還繼續在此 node 上部屬 pod，可能會造成 pod eviction。
+        - 此時可以考慮多新增幾台 node 到 k8s cluster 中，或是降低 replica 的數量等方式解決。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/BkviPk5Sh.png) 
         - 可以藉由 instance(node metric) ip 區別是哪一台 node
@@ -136,8 +137,7 @@
     - 介紹
         - 各個 node 上部屬的全部的 pod 所 request 的 memory 和 node 的 memory 的百分比
     - 理由
-        - 因為如果 node 上的 memory 空間不夠，可能造成 pod eviction。
-        - 所以當 node 空間不夠，可以透過嘗試刪減 pod 來獲取 memory，而此功能就可以讓使用者較直觀的觀察 pod 和 node 的 memory 關係。
+        - 因為 node 上除了 k8s 相關的物件，還會有別的程式佔掉記憶體，而此功能就可以讓使用者較直觀的觀察 pod 和 node 的 memory 關係。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/SyxlkaRYHh.png)
 
@@ -146,6 +146,7 @@
         - 各個 container 佔用了多少其限制的 memory 的百分比
     - 理由
         - 如果 container 佔用的 memory 百分比太高，可能是特殊狀況（被植入挖礦軟體），或是單純該應用程式就會佔用較多的 ram，此時管理者可以因應狀況處理。
+        - 如果 container 佔用的 memory 百分比太低，可以考慮把其 request 的 memory 降低以節省空間。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/Bk_3eycSh.png)
         - 會顯示是哪一個 pod
@@ -155,7 +156,7 @@
         - k8s cluster 中所有 node 的各別已使用的 cpu 的百分比
     - 理由
         - 當 node 的 cpu 使用量過高，可能造成系統的速度變得非常慢，或是 pod eviction。
-        - 當 cpu 使用量過高，可以用不同決策解決（ex. 把一些高 cpu 使用量的 pod 移到別台 node、更改 auto scaling 的設定）
+        - 當 cpu 使用量過高，可以用不同方式解決（ex. 把一些高 cpu 使用量的 pod 移到別台 node）
     - 輸出範例
         - ![](https://hackmd.io/_uploads/rJkRuy5Hh.png)
         - 可以藉由 instance(node metric) ip 區別是哪一台 node
@@ -191,15 +192,14 @@
         - 各個 namespace 不正常 pod 的數量
       - 理由
         - 當有 pod 的狀態不正常，k8s 會嘗試重啟 pod，可能會成功或失敗。 
-        - 可以觀察不同時間段各個 namespace 有多少不正常運作的 pod，再去找出造成 pod 不正常的真正原因，避免再次發生。
+        - 可以觀察不同時間段各個 namespace 有多少不正常運作的 pod，再去找出造成 pod 不正常的真正原因（ex. namespace 限制的資源不夠），避免再次發生。
       - 輸出範例
         - ![](https://hackmd.io/_uploads/ry1_7J5H2.png)
         - 會顯示是哪一個 namespace
 
 <h3>自動監測通報</h3>
-目前會依照 2 種不同的情況去監測，程式碼都在
 
-`monitor` file 當中，要再設定 crontab 要多久執行一次。
+目前會依照 2 種不同的情況去監測，在 `monitor` file 當中，要再設定 crontab 要多久執行一次。
 
 1. `weirdPod.py`
     - 介紹
@@ -270,8 +270,8 @@
 <h3>telegram_bot</h3>
    
    - 使用說明
-      - 所有指令最前面都要加 /
-      - 一開始要先輸入 /au 註冊後才可使用所有功能，使用者預設權限是3(最小)
-      - 輸入 /gu 可以查看自己的使用者資訊(id,名稱,權限)
-      - 輸入 /ac 可以查看自己的權限可使用的指令與說明
+      - 所有指令最前面都要加 `/`
+      - 一開始要先輸入 `/au` 註冊後才可使用所有功能，使用者預設權限是3(最小)
+      - 輸入 `/gu` 可以查看自己的使用者資訊(id,名稱,權限)
+      - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/fb9f949e-372a-46da-ba56-da3a52cbef83)
