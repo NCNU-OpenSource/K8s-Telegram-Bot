@@ -17,13 +17,6 @@ token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
 # path of kubectl
 kubectl_path = "/snap/bin/microk8s.kubectl"
 
-# chat id
-#chat_id="1697361994"
-# message
-#message = ''
-# api url
-#url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
-
 def main() :
     # status is not normal pod
     podWeird()

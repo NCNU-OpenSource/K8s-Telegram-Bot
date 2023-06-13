@@ -12,12 +12,9 @@ total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInN
 
 # bot token
 token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
-# chat id
-#chat_id="1697361994"
+
 # message
 message = ''
-# api url
-#url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
 
 def main() :
     # pod create event
@@ -31,7 +28,7 @@ def podCreate() :
     # convert string to datetime type
     now_time = datetime.datetime.strptime(now_time, '%Y-%m-%d %H:%M:%S')
     # execute command
-    command = 'kube_pod_created{namespace="default"}'
+    command = 'kube_pod_created'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     for i in range(len(eval(result.stdout))) :
         #print(result.stdout)
