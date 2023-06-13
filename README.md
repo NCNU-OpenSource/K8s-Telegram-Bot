@@ -36,6 +36,8 @@
    - ex. microk8s
       - install microk8s
          - `snap install microk8s --classic`
+      - my microk8s version
+         - `MicroK8s v1.26.5 revision 5395`
 2. crontab
 3. python3
 
