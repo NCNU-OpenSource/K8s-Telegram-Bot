@@ -28,7 +28,7 @@
 
 總結我們這個系統，可以在 telegram 聊天室輸入簡單的命令做到以下功能 ：
    1. 監控 k8s cluster 狀態（主動查看、被動通知）。
-   2. 快速部署 container 在 k8s 上。
+   2. 快速部署 container 在 k8s 上（我們以 wordpress 作為範例）。
 
 <h2>Prerequisite</h2>
 
