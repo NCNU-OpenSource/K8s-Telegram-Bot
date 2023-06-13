@@ -22,13 +22,13 @@
   1. 使用者體驗會更好，因為包含查詢 k8s cluster 狀態、telegram 發送警告，都可以直接藉由 telegram 聊天室傳達。
   2. 相對使用監控工具來說比較可以客製化要觀察的以及信件的內容。
 
-除了監控的功能以外，我們認為一些需要常被部屬的系統（ex. wordpress），若是可以藉由 telegtam 快速地在 k8s 上部屬也會很方便。
+除了監控的功能以外，若有需要常常在 k8s 中部屬一些常用的系統（ex. wordpress），如果可以直接藉由 telegtam 快速地在 k8s 上部屬也會很方便。
 
 <h2>Introduction</h2>
 
 總結我們這個系統，可以在 telegram 聊天室輸入簡單的命令做到以下功能 ：
-   1. 監控 k8s cluster 狀態
-   2. 快速部署 container 在 k8s 上
+   1. 監控 k8s cluster 狀態（主動查看、被動通知）。
+   2. 快速部署 container 在 k8s 上。
 
 <h2>Prerequisite</h2>
 
