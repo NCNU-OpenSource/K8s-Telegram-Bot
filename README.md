@@ -211,8 +211,8 @@
     - 介紹
       - 監測是否有狀態不正常的 pod，我設定一小時執行一次。
     - 理由
-      - pod 可能因為某些原因(ex. eviction)造成其狀態不正常，無法正常執行。
-      - 所以需要檢查 k8s cluster 內是否有不正常運作的 pod，並印出 pod 資訊和造成原因
+      - pod 可能因為某些原因（ex. eviction）造成其狀態不正常，無法正常執行。
+      - 所以需要檢查 k8s cluster 內是否有不正常運作的 pod，並印出該 pod <b>資訊</b>和造成其<b>不正常的原因</b>。
           - ![](https://hackmd.io/_uploads/Bk_cwAYSn.png)
       - 因為可能需要一些時間排錯，所以不用短時間一直重複檢查
     - 輸出範例
@@ -222,7 +222,7 @@
     - 介紹
       - 監測是否有新的 pod 被建立，我設定每一分鐘偵測一次
     - 理由
-      - 藉由得到哪些 pod 被建立的資訊，管理員可以更掌握 cluster 的資訊(ex. pod 建立超過一定量是否會讓 node 資源不夠)
+      - 藉由得到哪些 pod 被建立的資訊，管理員可以更掌握 cluster 的資訊（ex. pod 建立超過一定量是否會讓 node 資源不夠）
     - 輸出範例
         - ![](https://hackmd.io/_uploads/H1w45RKHh.png)
 
@@ -242,7 +242,7 @@
 
 - 使用說明
    - 必須按照步驟依序輸入 deployment 的 App Name, namepsace 的名稱, replicas 數量
-   - 如果部署過程中要取消或重新部屬，可以輸入`/clear`清除記錄
+   - 如果部署過程中要取消或重新部屬，可以輸入 `/clear` 清除記錄
    - 部署步驟<br>
       I. `/cw` 開始部署 WordPress<br>
       II. `/app App名稱` 輸入 deployment 的 App name<br>
@@ -290,7 +290,7 @@
    
    - 使用說明
       - 所有指令最前面都要加 `/`
-      - 一開始要先輸入 `/au` 註冊後才可使用所有功能，使用者預設權限是3(最小)
-      - 輸入 `/gu` 可以查看自己的使用者資訊(id,名稱,權限)
+      - 一開始要先輸入 `/au` 註冊後才可使用所有功能，使用者預設權限是3（最小）
+      - 輸入 `/gu` 可以查看自己的使用者資訊（id,名稱,權限）
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/fb9f949e-372a-46da-ba56-da3a52cbef83)
