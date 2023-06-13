@@ -107,6 +107,11 @@
       - token : your telegram bot token
       - kubectl_path : path of kubectl
    - 2.6 `dbConfig.py`
+      - user : user name
+      - password : user's password
+      - host : ip address of host
+      - port : port of mysql/mariadb
+      - database : db be used
 
 3. dump `schema.sql` into database
    - `mysql -u root -p telegram_db < schema.sql`
