@@ -106,6 +106,7 @@
    - 2.5 `monitor/weirdPod.py`
       - token : your telegram bot token
       - kubectl_path : path of kubectl
+   - 2.6 `dbConfig.py`
 
 3. dump `schema.sql` into database
    - `mysql -u root -p telegram_db < schema.sql`
@@ -117,9 +118,9 @@
    - `crontab -e`
    
       ```conf
-      */1 * * * * python3 /path/to/telegram_bot/monitor/podCreate.py
+      */1 * * * * python3 /path/to/telegram_bot/monitor/podCreate.py >> /path/to/telegram_bot/log/crontab.log
 
-      */60 * * * * python3 /path/to/telegram_bot/monitor/weirdPod.py
+      */60 * * * * python3 /path/to/telegram_bot/monitor/weirdPod.py >> /path/to/telegram_bot/log/crontab.log
       ```
 <h2>功能介紹</h2>
 <h3>查詢</h3>
