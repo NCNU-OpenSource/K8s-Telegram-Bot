@@ -18,11 +18,18 @@
 <br/>
 <br/>
 
-然而，我們認為除了上述的方法，若是可以直接使用 telegram 和 k8s cluster 溝通（包含查詢 k8s cluster 狀態、主動發送警告給管理員）會有幾個優點 : 
+然而，我們認為除了上述的方法監控 k8s，若是可以直接使用 telegram 和 k8s cluster 溝通（包含查詢 k8s cluster 狀態、主動發送警告給管理員）會有幾個優點 : 
   1. 使用者體驗會更好，因為包含查詢 k8s cluster 狀態、telegram 發送警告，都可以直接藉由 telegram 聊天室傳達。
   2. 相對使用監控工具來說比較可以客製化要觀察的以及信件的內容。
 
-<br/>
+除了監控的功能以外，我們認為一些需要常被部屬的系統（ex. wordpress），若是可以藉由 telegtam 快速地在 k8s 上部屬也會很方便。
+
+<h2>Introduction</h2>
+
+總結我們這個系統，可以在 telegram 聊天室輸入簡單的命令做到以下功能 ：
+   1. 監控 k8s cluster 狀態
+   2. 快速部署 container 在 k8s 上
+
 <h2>Prerequisite</h2>
 
 1. k8s cluster
@@ -76,22 +83,24 @@
 2. 把 script 的 variable 改為自己的設定
    - 2.1 `query.py` 
       - home_path : current dir
+         - `pwd`
       - token : your telegram bot token
    - 2.2 `call_prom.py`
       - home_path : current dir
       - host : address of prometheus server
+         - `kubectl get service --all-namespaces | grep prometheus`
    - 2.3 `deployWordpress.py`
       - ip : address of your host
       - token : your telegram bot token
       - home_path : current dir
-      - config_path : path of k8s client.config (path of microk8s installed by snap is "/var/snap/microk8s/current/credentials/client.config")
+      - config_path : path of k8s client.config (default path of microk8s installed by snap is `/var/snap/microk8s/current/credentials/client.config`)
       - kubctl_path : path of kubectl
+         - `whereis kubectl`
    - 2.4 `monitor/podCreate.py`
       - token : your telegram bot token  
    - 2.5 `monitor/weirdPod.py`
       - token : your telegram bot token
       - kubectl_path : path of kubectl
-         - `whereis kubectl`
 
 <h2>Usage</h2>
 
@@ -106,9 +115,8 @@
       ```
 <h2>功能介紹</h2>
 <h3>查詢</h3>
-目前有 8 種查詢的種類 : 程式碼都在
 
-`call_prom.py`，不同功能用不同 function 區分。
+目前有 8 種查詢的種類 : 在 `call_prom.py`，不同功能用不同 function 區分。
 <br/>
 使用情境:
    
