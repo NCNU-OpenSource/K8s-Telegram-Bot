@@ -56,13 +56,13 @@
       - `cd microk8s/prometheus`
       - `kubectl apply -f .`
 5. exporter
-      1. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/kube-state-metrics">kube-state-metrics</a>
+      1. <a href = "https://github.com/kubernetes/kube-state-metrics">kube-state-metrics</a>
          - export the <b>all</b> metrics of k8s cluster
             - include the pod numbers, status and abnoraml reasons...
          - install
             - `cd microk8s/kube-state-metrics` 
             - `kubectl apply -f .`
-      2. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/node_exporter">node exporter</a>
+      2. <a href = "https://github.com/bibinwilson/kubernetes-node-exporter">node exporter</a>
          - export the metrics of <b>each</b> node
             - include memory, cpu and storage status
          - install
