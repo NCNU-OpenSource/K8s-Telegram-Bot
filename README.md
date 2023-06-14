@@ -135,7 +135,7 @@
 <br/>
 使用情境:
    
-   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/96759292/9c532914-eb91-40b9-a99b-8df56a49eff6)
+   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f5407a98-5169-445a-a286-45be2379e75e)
 
 1. `nodeMemSecTotal` 
     - 介紹
