@@ -135,7 +135,7 @@
 <br/>
 使用情境:
    
-   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/f5407a98-5169-445a-a286-45be2379e75e)
+   ![](https://hackmd.io/_uploads/H1c3lrvv3.png)
 
 1. `nodeMemSecTotal` 
     - 介紹
@@ -258,12 +258,12 @@
       III. `/ns namespace名稱` WordPress 要建在哪個 namespace 下<br>
       IV. `/rs replicas數量` deployment 的 replicas 數量(1~3)<br>
       V. 部署完成<br>
-   ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/b61095f6-c1bc-4060-9bc1-a67ed002facf)
+   ![](https://hackmd.io/_uploads/BkdJZHPPh.png)
 
 <h3>資料庫</h3>
    
    - schema
-      ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/c991702e-48f7-4887-a183-41e9b80c4945)
+      ![](https://hackmd.io/_uploads/rynEbHvw3.png)
    
    - table
       - `all_user` : 記錄使用者資訊
@@ -302,4 +302,4 @@
       - 一開始要先輸入 `/au` 註冊後才可使用所有功能，使用者預設權限是3（最小）
       - 輸入 `/gu` 可以查看自己的使用者資訊（id,名稱,權限）
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
-      ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/fb9f949e-372a-46da-ba56-da3a52cbef83)
+      ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
