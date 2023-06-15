@@ -132,7 +132,7 @@ def podMemUseInNode() :
     # execute command
     #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) / sum(kube_node_status_capacity{resource="memory"}) * 100'
     #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) by (node) / sum(kube_node_status_capacity{resource="memory"}) by (node) * 100'
-    command = 'sum(kube_pod_container_resource_requests{resource="memory"}) by (node)  / sum(kube_node_status_capacity{resource="memory"}) by (node)'
+    command = 'sum(kube_pod_container_resource_requests{resource="memory"}) by (node)  / sum(kube_node_status_capacity{resource="memory"}) by (node) * 100'
     result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
