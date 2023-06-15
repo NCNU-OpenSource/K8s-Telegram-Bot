@@ -17,7 +17,7 @@ def connectDB():
             user={"user name"},
             password={"user password"},
             host={"host ip"},
-            port={hot port},
+            port={port number},
             database={"db_name"}
     )
     cur = conn.cursor()
