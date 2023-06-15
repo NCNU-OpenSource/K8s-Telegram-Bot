@@ -12,10 +12,10 @@ interval = "1h"
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
 # bot token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+token = {"telegram-bot token"}
 
 # path of kubectl
-kubectl_path = "/snap/bin/microk8s.kubectl"
+kubectl_path = {"kubectl path"}
 
 def main() :
     # status is not normal pod
