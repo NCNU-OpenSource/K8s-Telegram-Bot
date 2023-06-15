@@ -6,19 +6,19 @@ import mysql.connector
 import re
 
 # home path
-home_path = '/home/tommygood/telegram_bot'
+home_path = {"current dir"}
 
 # bot token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+token = {"telegram-bot token"}
 
 # db
 def connectDB():
     conn = mysql.connector.connect(
-            user="kenny",
-            password="Kenny061256",
-            host="localhost",
-            port=3306,
-            database="telegram_db"
+            user={"user name"},
+            password={"user password"},
+            host={"host ip"},
+            port={hot port},
+            database={"db_name"}
     )
     cur = conn.cursor()
     return conn,cur
