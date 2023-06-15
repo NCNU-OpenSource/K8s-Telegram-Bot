@@ -308,5 +308,5 @@
       ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
 
 <h3>分工</h3>
-   - 王冠權：架設 k8s、k8s 監控和自動通報
-   - 黃瑜楓：部署 WordPress、telegram-bot
+- 王冠權：架設 k8s、k8s 監控和自動通報<br>
+- 黃瑜楓：部署 WordPress、telegram-bot
