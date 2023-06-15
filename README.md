@@ -307,6 +307,16 @@
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
 
-<h3>分工</h3>
-- 王冠權：架設 k8s、k8s 監控和自動通報<br>
-- 黃瑜楓：部署 WordPress、telegram-bot
+<h2>Job Assignment</h2>
+
+- 王冠權：架設 k8s、k8s 監控和自動通報
+- 黃瑜楓：部署 WordPress on k8s、telegram-bot
+
+<h2>Reference</h2>
+
+- https://github.com/kubernetes/kube-state-metrics
+- https://github.com/bibinwilson/kubernetes-node-exporter
+- https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
+- https://ithelp.ithome.com.tw/articles/10248278
+- https://gist.github.com/max-rocket-internet/6a05ee757b6587668a1de8a5c177728b
+- https://sysdig.com/blog/prometheus-query-examples/
