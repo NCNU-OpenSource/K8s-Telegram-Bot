@@ -47,15 +47,7 @@
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
 2. install the python plugins will be used
    - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
-3. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
-   - installation
-      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
-         - view the latest version first
-4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
-   - install
-      - `cd microk8s/prometheus`
-      - `kubectl apply -f .`
-5. exporter
+3. exporter
       1. <a href = "https://github.com/kubernetes/kube-state-metrics">kube-state-metrics</a>
          - export the <b>all</b> metrics of k8s cluster
             - include the pod numbers, status and abnoraml reasons...
@@ -75,6 +67,14 @@
             - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port
             - `curl https://localhost:10250/metrics`
          - note : 需要去 cluster 中<b>每一個</b> node 檢查
+4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
+   - install
+      - `cd microk8s/prometheus`
+      - `kubectl apply -f .`
+5. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
+   - install
+      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
+         - view the latest version first
 
 <h2>Configuration</h2>
 
