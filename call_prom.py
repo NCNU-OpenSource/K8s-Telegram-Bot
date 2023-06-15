@@ -28,7 +28,7 @@ interval = "5h"
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'containerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
 # home_path 
-home_path = '/home/tommygood/telegram_bot'
+home_path = {"current dir"}
 
 
 
