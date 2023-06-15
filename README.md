@@ -306,3 +306,7 @@
       - 輸入 `/gu` 可以查看自己的使用者資訊（id,名稱,權限）
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
+
+<h3>分工</h3>
+   - 王冠權：架設 k8s、k8s 監控和自動通報
+   - 黃瑜楓：部署 WordPress、telegram-bot
