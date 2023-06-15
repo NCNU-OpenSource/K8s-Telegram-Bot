@@ -139,7 +139,7 @@
 
 1. `nodeMemSecTotal` 
     - 介紹
-        - k8s cluster 中的所有 node 的各別已使用的 memory 的百分比
+        - k8s cluster 中的所有 node 的各別可<b>被使用</b>的 memory 的百分比
     - 理由
         - 當 node 的 memory 不夠時，如果還繼續在此 node 上部屬 pod，可能會造成 pod eviction。
             - pod eviction : 當 k8s cluster 中的 node 資源不夠時，pod 會被從此 node 中移除。
@@ -160,7 +160,7 @@
     - 介紹
         - 各個 container 佔用了多少其限制的 memory 的百分比
     - 理由
-        - 如果 container 佔用的 memory 百分比太高，可能是特殊狀況（被植入挖礦軟體），或是單純該應用程式就會佔用較多的 ram，此時管理者可以因應狀況處理。
+        - 如果 container 佔用的 memory 百分比太高，可能是特殊狀況（被植入挖礦軟體），或是單純該應用程式就會佔用較多的 memory，此時管理者可以因應狀況處理。
         - 如果 container 佔用的 memory 百分比太低，可以考慮把其 request 的 memory 降低以節省空間。
     - 輸出範例
         - ![](https://hackmd.io/_uploads/Bk_3eycSh.png)
@@ -182,7 +182,7 @@
     - 理由
         - 藉由觀察 cluster 內全部的 container 使用的 cpu 百分比，可以決定是否要不要再此 k8s cluster 新增 or 刪除 node 數量來達到資源最有效的運用
     - 輸出範例
-        - ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/96759292/f580a539-6312-4fbd-8aae-9ae7c0cf06e1)
+        - ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/96759292/b799532d-2a0b-4d6a-ad54-3b0ed1c099bd)
   
  6. `conatinerPerCpuUsage`
     - 介紹
