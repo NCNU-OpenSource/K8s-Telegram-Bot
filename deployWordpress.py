@@ -8,13 +8,13 @@ import mysql.connector
 # ip address
 ip = "192.168.10.31"
 # token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+token = {"telegram-bot token"}
 # home path
-home_path = '/home/tommygood/telegram_bot'
+home_path = {"current path"}
 # config path
-config_path = "/var/snap/microk8s/current/credentials/client.config"
+config_path = {"k8s client.config path"}
 # kubctl path
-kubectl_path = "/snap/bin/microk8s.kubectl"
+kubectl_path = {"kubectl_path"}
 
 config.load_kube_config(config_file=config_path)
 
@@ -107,11 +107,11 @@ except:
     url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
     requests.get(url)
     conn = mysql.connector.connect(
-            user="kenny",
-            password="Kenny061256",
-            host="localhost",
-            port=3306,
-            database="telegram_db"
+            user={"user name"},
+            password={"user password"},
+            host={"host ip"},
+            port={port number},
+            database={"db_name"}
     )
     cur = conn.cursor()
     sql = "delete from all_wordpress where app_name = %s;"
