@@ -6,7 +6,7 @@ import mysql.connector, re
 import configparser
 
 # home path
-home_path = {"current dir"}
+home_path = '/home/tommygood/telegram_bot'
 
 # config
 config = configparser.ConfigParser()
@@ -19,9 +19,6 @@ db_password = config["db"]["password"]
 db_host = config["db"]["host"]
 db_port = config["db"]["port"] 
 db = config["db"]["database"]
-
-# bot token
-token = {"telegram-bot token"}
 
 # db
 def connectDB():

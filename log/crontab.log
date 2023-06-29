@@ -194,3 +194,15 @@ Pod create time : 2023-06-29 16:30:05
 456
 [('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
 123
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199414-9d9699c87-zbmzx 
+uid : a8f7c9e7-900d-44d7-bc5d-213525f0c1a6 
+
+Pod create time : 2023-06-29 16:55:30
+456
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+123

@@ -36,11 +36,6 @@ interval = "5h"
 # total metric type
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'containerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
-# home_path 
-home_path = {"current dir"}
-
-
-
 def main() :
     # check metric available
     if not checkRightMetric() :
