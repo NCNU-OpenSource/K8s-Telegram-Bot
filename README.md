@@ -28,7 +28,10 @@
 
 總結我們這個系統，可以在 telegram 聊天室輸入簡單的命令做到以下功能 ：
    1. 監控 k8s cluster 狀態（主動查看、被動通知）。
+       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/402f5b63-6e0e-4d3b-bbca-4b82b5bb68e3)
+
    2. 快速部署 container 在 k8s 上（我們以 wordpress 作為範例）。
+       ![image](https://github.com/tommygood/K8s-Telegram-Bot/assets/104426729/6ab5a0f7-e77e-4727-9eb5-3221923985c8)
 
 <h2>Prerequisite</h2>
 
@@ -47,15 +50,7 @@
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
 2. install the python plugins will be used
    - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
-3. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
-   - installation
-      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
-         - view the latest version first
-4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
-   - install
-      - `cd microk8s/prometheus`
-      - `kubectl apply -f .`
-5. exporter
+3. exporter
       1. <a href = "https://github.com/kubernetes/kube-state-metrics">kube-state-metrics</a>
          - export the <b>all</b> metrics of k8s cluster
             - include the pod numbers, status and abnoraml reasons...
@@ -75,6 +70,14 @@
             - 不同 k8s 環境，設定會不同，通常預設會直接開在 node 上的 10250 or 10255 port
             - `curl https://localhost:10250/metrics`
          - note : 需要去 cluster 中<b>每一個</b> node 檢查
+4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
+   - install
+      - `cd microk8s/prometheus`
+      - `kubectl apply -f .`
+5. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
+   - install
+      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
+         - view the latest version first
 
 <h2>Configuration</h2>
 
@@ -303,3 +306,17 @@
       - 輸入 `/gu` 可以查看自己的使用者資訊（id,名稱,權限）
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
+
+<h2>Job Assignment</h2>
+
+- 王冠權：架設 k8s、k8s 監控和自動通報
+- 黃瑜楓：部署 WordPress on k8s、telegram-bot
+
+<h2>Reference</h2>
+
+- https://github.com/kubernetes/kube-state-metrics
+- https://github.com/bibinwilson/kubernetes-node-exporter
+- https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
+- https://ithelp.ithome.com.tw/articles/10248278
+- https://gist.github.com/max-rocket-internet/6a05ee757b6587668a1de8a5c177728b
+- https://sysdig.com/blog/prometheus-query-examples/
