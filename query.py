@@ -2,23 +2,35 @@ from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardR
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import daemon, sys, requests, logging, configparser, logging.handlers
 from subprocess import call, PIPE, run, Popen
-import mysql.connector
-import re
+import mysql.connector, re
+import configparser
 
 # home path
 home_path = '/home/tommygood/telegram_bot'
 
+# config
+config = configparser.ConfigParser()
+config.read(home_path + '/config.ini')
+token = config["env"]["bot_token"]
+
+# db
+db_user = config["db"]["user"]
+db_password = config["db"]["password"]
+db_host = config["db"]["host"]
+db_port = config["db"]["port"] 
+db = config["db"]["database"]
+
 # bot token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+#token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
 
 # db
 def connectDB():
     conn = mysql.connector.connect(
-            user="kenny",
-            password="Kenny061256",
-            host="localhost",
-            port=3306,
-            database="telegram_db"
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db
     )
     cur = conn.cursor()
     return conn,cur
@@ -542,11 +554,11 @@ async def allCommand(update,context):
         await update.message.reply_text(result)
 
 def send_photo(photo_path):
-    bot_token = '6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg'
+    #bot_token = '6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg'
     chat_id = '1697361994'
     with open(photo_path, 'rb') as photo_file:
         response = requests.post(
-            f'https://api.telegram.org/bot{bot_token}/sendPhoto',
+            f'https://api.telegram.org/bot{token}/sendPhoto',
             files={'photo': photo_file},
             data={'chat_id': chat_id}
         )

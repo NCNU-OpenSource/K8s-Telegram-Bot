@@ -1,6 +1,15 @@
 from subprocess import call, PIPE, run, os
 import json, datetime, argparse
 import matplotlib.pyplot as plt
+import configparser
+
+# home path
+home_path = '/home/tommygood/telegram_bot'
+
+# config
+config = configparser.ConfigParser()
+config.read(home_path + '/config.ini')
+host = config["env"]["prometheus_host"]
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-t", "--type", required = True, help = " : metric type") # get metric type
@@ -8,7 +17,7 @@ ap.add_argument("-n", "--namespace", required = False, help = " : specify namesp
 args = vars(ap.parse_args())
 
 # prometheus server
-host = 'http://localhost:31111'
+#host = 'http://localhost:31111'
 
 # metric type
 metric_type = args['type']

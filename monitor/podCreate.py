@@ -1,9 +1,18 @@
 import datetime, requests
 from subprocess import call, PIPE, run
-from dbConfig import conn,cur
+#from dbConfig import conn,cur
+import configparser
+import mysql.connector, re
+
+# config
+config = configparser.ConfigParser()
+
+# home path
+home_path = '/home/tommygood/telegram_bot'
+config.read(home_path + '/config.ini')
 
 # prometheus server
-host = "http://localhost:31111"
+host = config["env"]["prometheus_host"]
 # time range
 interval = "5h"
 
@@ -11,7 +20,14 @@ interval = "5h"
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
 # bot token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+token = config["env"]["bot_token"]
+
+# db
+db_user = config["db"]["user"]
+db_password = config["db"]["password"]
+db_host = config["db"]["host"]
+db_port = config["db"]["port"] 
+db = config["db"]["database"]
 
 # message
 message = ''
@@ -56,18 +72,33 @@ def podCreate() :
             #print(time_interval_min, mark)
             if float(time_limit) > time_interval_min :
                 message = "New Pod Event !" + "\n" + mark + "\n" + 'Pod create time : ' + str(pod_create_time)
-                #print(message)
+                print(message)
                 sql = "select * from all_user where permission=1;"
+                print(456)
+                conn,cur = connectDB()
                 cur.execute(sql,())
                 record = cur.fetchall()
                 print(record)
+                print(123)
                 for i in range(len(record)):
                     url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={record[i][0]}&text={message}"
                     res = requests.get(url) # this sends the message
                 #print(res.text)
-        except :
+        except Exception as e:
             data_metric = list(eval(result.stdout)[i]['metric'].items())
+            print(str(e))
             #print(eval(result.stdout)[i]['values'], data_metric)
+
+def connectDB():
+    conn = mysql.connector.connect(
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db
+    )
+    cur = conn.cursor()
+    return conn,cur
 
 def removeMarkLast(mark) :
     new_mark = ''

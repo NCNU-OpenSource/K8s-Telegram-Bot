@@ -71,3 +71,126 @@ Command '/snap/bin/microk8s.kubectl describe pods node-exporter-7bfql | grep Rea
 [('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
 [('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
 [('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+Command '/snap/bin/microk8s.kubectl describe pods memory-hog-pod | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods memory-hog-pod1 | grep Reason' returned non-zero exit status 1.
+Command '/snap/bin/microk8s.kubectl describe pods memory-hog-pod2 | grep Reason' returned non-zero exit status 1.
+/home/tommygood
+/home/tommygood
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199412-79b885fdd5-76h58 
+uid : 7c469030-acad-4ce1-8c20-0d8f5f996585 
+
+Pod create time : 2023-06-29 16:24:50
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199410-758458d47-fnx8n 
+uid : b26d2fdd-fab7-4797-95a6-12855ef33250 
+
+Pod create time : 2023-06-29 16:20:37
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199411-7b9dd9b76b-rdvdh 
+uid : c1f27336-df5e-479d-a2ee-0f6d30d45c68 
+
+Pod create time : 2023-06-29 16:23:13
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199412-79b885fdd5-76h58 
+uid : 7c469030-acad-4ce1-8c20-0d8f5f996585 
+
+Pod create time : 2023-06-29 16:24:50
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199410-758458d47-fnx8n 
+uid : b26d2fdd-fab7-4797-95a6-12855ef33250 
+
+Pod create time : 2023-06-29 16:20:37
+456
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199411-7b9dd9b76b-rdvdh 
+uid : c1f27336-df5e-479d-a2ee-0f6d30d45c68 
+
+Pod create time : 2023-06-29 16:23:13
+456
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199412-79b885fdd5-76h58 
+uid : 7c469030-acad-4ce1-8c20-0d8f5f996585 
+
+Pod create time : 2023-06-29 16:24:50
+456
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199410-758458d47-fnx8n 
+uid : b26d2fdd-fab7-4797-95a6-12855ef33250 
+
+Pod create time : 2023-06-29 16:20:37
+456
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+123
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199411-7b9dd9b76b-rdvdh 
+uid : c1f27336-df5e-479d-a2ee-0f6d30d45c68 
+
+Pod create time : 2023-06-29 16:23:13
+456
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+123
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199412-79b885fdd5-76h58 
+uid : 7c469030-acad-4ce1-8c20-0d8f5f996585 
+
+Pod create time : 2023-06-29 16:24:50
+456
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+123
+New Pod Event !
+__name__ : kube_pod_created 
+instance : 10.152.183.36:8080 
+job : kube-state-metrics 
+namespace : default 
+pod : 169736199413-f5cd794bd-fghtj 
+uid : 468152a5-c12a-4b9c-b420-171ecf7201f1 
+
+Pod create time : 2023-06-29 16:30:05
+456
+[('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
+123

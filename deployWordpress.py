@@ -1,22 +1,39 @@
-from kubernetes import client, config
+from kubernetes import client, config as k8s_config
 import yaml
 import sys 
 import requests
 import subprocess
 import mysql.connector
+import configparser
 
-# ip address
-ip = "192.168.10.31"
-# token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
 # home path
 home_path = '/home/tommygood/telegram_bot'
-# config path
-config_path = "/var/snap/microk8s/current/credentials/client.config"
-# kubctl path
-kubectl_path = "/snap/bin/microk8s.kubectl"
 
-config.load_kube_config(config_file=config_path)
+# config
+config = configparser.ConfigParser()
+config.read(home_path + '/config.ini')
+token = config["env"]["bot_token"]
+
+# ip address
+ip = config["env"]["host"]
+
+# token
+token = config["env"]["bot_token"]
+
+# db
+db_user = config["db"]["user"]
+db_password = config["db"]["password"]
+db_host = config["db"]["host"]
+db_port = config["db"]["port"] 
+db = config["db"]["database"]
+
+# config path
+config_path = config["env"]["k8s_config"]
+
+# kubctl path
+kubectl_path = config["env"]["kubectl_path"]
+
+k8s_config.load_kube_config(config_file=config_path)
 
 app_name = sys.argv[1]
 namespace = sys.argv[2]
@@ -60,11 +77,11 @@ try:
         command = f"{kubectl_path} delete deployment {app_name}"
         output = subprocess.check_output(command, shell=True, text=True)    
         conn = mysql.connector.connect(
-            user="kenny",
-            password="Kenny061256",
-            host="localhost",
-            port=3306,
-            database="telegram_db"
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db
         )
         cur = conn.cursor()
         sql = "delete from all_wordpress where app_name = %s;"
@@ -95,7 +112,7 @@ try:
         message = "WordPress建置完成！\n網址為 "+ip+":"+str(port)
         url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
         requests.get(url)
-except:
+except Exception as e :
     try:
         # 刪除deployment
         command = f"{kubectl_path} delete deployment {app_name}"
@@ -103,15 +120,15 @@ except:
     except:
         pass
     chat_id = sys.argv[4]
-    message = "WordPress建置失敗！\n請重新建置！"
+    message = "WordPress建置失敗！\n請重新建置！\n" + str(e)
     url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
     requests.get(url)
     conn = mysql.connector.connect(
-            user="kenny",
-            password="Kenny061256",
-            host="localhost",
-            port=3306,
-            database="telegram_db"
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db
     )
     cur = conn.cursor()
     sql = "delete from all_wordpress where app_name = %s;"

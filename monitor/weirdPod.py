@@ -1,10 +1,20 @@
 # monitor whether have pod is not running
 import datetime, requests, subprocess
 from subprocess import call, PIPE, run
-from dbConfig import conn,cur
+#from dbConfig import conn,cur
+import configparser
+import mysql.connector, re
+
+# config
+config = configparser.ConfigParser()
+
+# home path
+home_path = '/home/tommygood/telegram_bot'
+config.read(home_path + '/config.ini')
 
 # prometheus server
-host = "http://localhost:31111"
+host = config["env"]["prometheus_host"]
+
 # time range
 interval = "1h"
 
@@ -12,10 +22,17 @@ interval = "1h"
 total_metric_type = ['podMemUseInNode', 'eachConatinerMemUsage', 'weirdPodNumInNamespace', 'runningPodNumInNamespace', 'nodeMemSecTotal', 'nodeCpuSecTotal', 'conatinerCpuPerSecTotal', 'conatinerPerCpuUsage', 'namespacePerPodCpuUsage']
 
 # bot token
-token = "6062324742:AAEqo43jhwayn0kmF-9SnnnZ8ZLCbOZcVEg"
+token = config["env"]["bot_token"]
 
 # path of kubectl
-kubectl_path = "/snap/bin/microk8s.kubectl"
+kubectl_path = config["env"]["kubectl_path"]
+
+# db
+db_user = config["db"]["user"]
+db_password = config["db"]["password"]
+db_host = config["db"]["host"]
+db_port = config["db"]["port"] 
+db = config["db"]["database"]
 
 def main() :
     # status is not normal pod
@@ -26,11 +43,23 @@ def sendMsg(mark) :
     message = "Pod Not Running Event !" + "\n\n" + mark + '\n'
     #print(message)
     sql = "select * from all_user;"
+    conn,cur = connectDB()
     cur.execute(sql,())
     record = cur.fetchall()
     for i in range(len(record)):
         url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={record[i][0]}&text={message}"
         res = requests.get(url) # this sends the message
+
+def connectDB():
+    conn = mysql.connector.connect(
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port,
+            database = db
+    )
+    cur = conn.cursor()
+    return conn,cur
 
 def podWeird() :
     # set time limit to check whether is a new pod with minute
