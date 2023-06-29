@@ -75,9 +75,10 @@
       - `cd microk8s/prometheus`
       - `kubectl apply -f .`
 5. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
-   - install
-      - `wget https://github.com/nalbury/promql-cli/releases/download/v0.3.0/promql-v0.3.0-darwin-amd64.tar.gz`
-         - view the latest version first
+   - install latest version first
+      - https://github.com/nalbury/promql-cli/releases
+   - or keep using the current version
+      - `sudo ln -s /path/to/file/telegram_bot/microk8s/promql_cli/promql /usr/bin/promql`
 
 <h2>Configuration</h2>
 
@@ -88,11 +89,11 @@
       - targets: ['exporter_ip:exporter_port']
    ```
 
-2. 用 script 自動改寫 `home_path` in all scripts (as use the python daemon)
+2. rewrite variable of `home_path` in all scripts (as use the python daemon)
    - `cd /path/to/telegram_bot`
    - `python3 setupEnv.py`
 
-3. `config.ini` 改為自己的設定 (prometheus host, db etc.)
+3. set your config in `config.ini` (prometheus host, db etc.)
 
 4. dump `schema.sql` into database
    - `mysql -u root -p telegram_db < schema.sql`
