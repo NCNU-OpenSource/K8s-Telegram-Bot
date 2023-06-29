@@ -88,35 +88,13 @@
       - targets: ['exporter_ip:exporter_port']
    ```
 
-2. 把 script 的 variable 改為自己的設定
-   - 2.1 `query.py` 
-      - home_path : current dir
-         - `pwd`
-      - token : your telegram bot token
-   - 2.2 `call_prom.py`
-      - home_path : current dir
-      - host : address of prometheus server
-         - `kubectl get service --all-namespaces | grep prometheus`
-   - 2.3 `deployWordpress.py`
-      - ip : address of your host
-      - token : your telegram bot token
-      - home_path : current dir
-      - config_path : path of k8s client.config (default path of microk8s installed by snap is `/var/snap/microk8s/current/credentials/client.config`)
-      - kubctl_path : path of kubectl
-         - `whereis kubectl`
-   - 2.4 `monitor/podCreate.py`
-      - token : your telegram bot token  
-   - 2.5 `monitor/weirdPod.py`
-      - token : your telegram bot token
-      - kubectl_path : path of kubectl
-   - 2.6 `dbConfig.py`
-      - user : user name
-      - password : user's password
-      - host : ip address of host
-      - port : port of mysql/mariadb
-      - database : db be used
+2. 用 script 自動改寫 `home_path` in all scripts (as use the python daemon)
+   - `cd /path/to/telegram_bot`
+   - `python3 setupEnv.py`
 
-3. dump `schema.sql` into database
+3. `config.ini` 改為自己的設定 (prometheus host, db etc.)
+
+4. dump `schema.sql` into database
    - `mysql -u root -p telegram_db < schema.sql`
 
 <h2>Usage</h2>
