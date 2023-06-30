@@ -74,15 +74,10 @@
    - install
       - `cd microk8s/prometheus`
       - `kubectl apply -f .`
-5. <a href = "https://github.com/nalbury/promql-cli">promql-cli</a> 
-   - install latest version first
-      - https://github.com/nalbury/promql-cli/releases
-   - or keep using the current version
-      - `sudo ln -s /path/to/file/telegram_bot/microk8s/promql_cli/promql /usr/bin/promql`
 
 <h2>Configuration</h2>
 
-1. 依據不同的 <b>exporter</b> 的 <b>ip</b>, <b>port</b> 調整 <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server 的設定</a>，新增或編輯在 `scrape_configs:` 下：
+1. convert the settings of <b>ip</b>, <b>port</b> of <b>exporter</b> in <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server</a> : edit the `scrape_configs:`
    ```
    - job_name: 'exporter_name'
       static_configs: 
@@ -293,6 +288,7 @@
 
 <h2>Reference</h2>
 
+- https://github.com/nalbury/promql-cli
 - https://github.com/kubernetes/kube-state-metrics
 - https://github.com/bibinwilson/kubernetes-node-exporter
 - https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
