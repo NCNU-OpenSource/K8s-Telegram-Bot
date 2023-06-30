@@ -71,27 +71,29 @@
             - `curl https://localhost:10250/metrics`
          - note : 需要去 cluster 中<b>每一個</b> node 檢查
 4. <a href = "https://github.com/tommygood/K8s-Telegram-Bot/tree/master/microk8s/prometheus">prometheus server</a>
+   - configure the exporters' address in `/path/to/telegram_bot/microk8s/prometheus/prometheus-cm.yaml`
+     - edit `scrape_configs` :
+     
+         ```
+         - job_name: 'exporter_name'
+            static_configs: 
+            - targets: ['exporter_ip:exporter_port']
+         ```
    - install
       - `cd microk8s/prometheus`
       - `kubectl apply -f .`
 
 <h2>Configuration</h2>
 
-1. convert the settings of <b>ip</b>, <b>port</b> of <b>exporter</b> in <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server</a> to yours : edit the `scrape_configs:`
-   ```
-   - job_name: 'exporter_name'
-      static_configs: 
-      - targets: ['exporter_ip:exporter_port']
-   ```
-
-2. rewrite variable of `home_path` in all scripts (as use the python daemon)
+1. rewrite variable of `home_path` in all scripts (as use the python daemon)
    - `cd /path/to/telegram_bot`
    - `python3 setupEnv.py`
 
-3. set your config in `config.ini` (prometheus host, db etc.)
+2. set your config in `config.ini` (prometheus host, db etc.)
+   - `vi /path/to/telegram_bot/config.ini`
 
-4. dump `schema.sql` into database
-   - `mysql -u root -p telegram_db < schema.sql`
+3. dump `schema.sql` into database
+   - `mysql -u root -p telegram_db < /path/to/telegram_bot/schema.sql`
 
 <h2>Usage</h2>
 
