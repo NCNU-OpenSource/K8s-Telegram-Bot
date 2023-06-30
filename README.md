@@ -49,7 +49,7 @@
 
 1. `git clone https://github.com/tommygood/K8s-Telegram-Bot.git`
 2. install the python plugins will be used
-   - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib`
+   - `pip3 install python-telegram-bot python-daemon mysql-connector matplotlib kubernetes yaml configparser`
 3. exporter
       1. <a href = "https://github.com/kubernetes/kube-state-metrics">kube-state-metrics</a>
          - export the <b>all</b> metrics of k8s cluster
