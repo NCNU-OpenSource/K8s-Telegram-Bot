@@ -77,7 +77,7 @@
 
 <h2>Configuration</h2>
 
-1. convert the settings of <b>ip</b>, <b>port</b> of <b>exporter</b> in <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server</a> : edit the `scrape_configs:`
+1. convert the settings of <b>ip</b>, <b>port</b> of <b>exporter</b> in <a href = "https://github.com/tommygood/K8s-Telegram-Bot/blob/master/microk8s/prometheus/prometheus-cm.yaml">prometheus server</a> to yours : edit the `scrape_configs:`
    ```
    - job_name: 'exporter_name'
       static_configs: 
