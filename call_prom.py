@@ -71,7 +71,7 @@ def checkRightMetric() :
 def nodeCpuSecTotal() :
     # execute command
     command = '100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # kube-state exporter 
@@ -83,7 +83,7 @@ def containerCpuPerSecTotal() :
     #command = 'sum (rate (container_cpu_usage_seconds_total{image!=""}[1m]))'
     # percertange
     command = 'sum (rate (container_cpu_usage_seconds_total{id="/"}[20m])) / sum (machine_cpu_cores) * 100'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # each container cpu usage percentage
@@ -92,7 +92,7 @@ def conatinerPerCpuUsage() :
     #command = 'sum(irate(container_cpu_usage_seconds_total[5m])*100)by(pod)'
     #command = 'sum (rate (container_cpu_usage_seconds_total{image!=""}[5m])) by (pod)'
     command = f'sum(rate(container_cpu_usage_seconds_total{{image!="",{namespace}}}[5m])) by (pod, container, namespace) / sum(container_spec_cpu_quota{{image!="", {namespace}}}/container_spec_cpu_period{{image!="", {namespace}}}) by (pod, container, namespace) * 100'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # the cpu usage percentage of per container in each namespace
@@ -100,35 +100,35 @@ def namespacePerPodCpuUsage() :
     # execute command
     #command = 'sum(rate(container_cpu_usage_seconds_total{image!="", namespace ="%s"}[5m])) by (pod, container) / sum(container_spec_cpu_quota{image!="", namespace = "%s"}/container_spec_cpu_period{image!="", namespace = "%s"}) by (pod, container)'
     command = 'sum(rate(container_cpu_usage_seconds_total{image!="", namespace ="%s"}[5m]))/ sum(container_spec_cpu_quota{image!="", namespace = "%s"}/container_spec_cpu_period{image!="", namespace = "%s"}) /  count(kube_pod_status_phase{phase="Running", namespace= "%s"})' % (namespace, namespace, namespace, namespace)
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # node available memory percent
 def nodeMemSecTotal() :
     # execute command
     command = '(node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes ) / node_memory_MemTotal_bytes * 100'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # number of running pod in each namespace
 def runningPodNumInNamespace() :
     # execute command
     command = f'sum(kube_pod_container_status_running{{{namespace}}}) by (namespace)'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # number of weird status pod in each namespace
 def weirdPodNumInNamespace() :
     # execute command
     command = f"sum by (namespace) (kube_pod_status_ready{{condition='false', {namespace}}})"
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # the memory usage percent of each container
 def eachConatinerMemUsage() :
     # execute command
     command = f'sum (container_memory_working_set_bytes{{{namespace}}}) by (container_name , pod) / (sum (container_spec_memory_limit_bytes{{{namespace}}}>0 ) by (container_name, pod)) * 100'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # the percent of pod memory use on the node deploying it 
@@ -137,7 +137,7 @@ def podMemUseInNode() :
     #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) / sum(kube_node_status_capacity{resource="memory"}) * 100'
     #command = 'sum(kube_pod_container_resource_limits{resource="memory"}) by (node) / sum(kube_node_status_capacity{resource="memory"}) by (node) * 100'
     command = 'sum(kube_pod_container_resource_requests{resource="memory"}) by (node)  / sum(kube_node_status_capacity{resource="memory"}) by (node) * 100'
-    result = run(["promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run([home_path + "/microk8s/promql_cli/promql", "--host", host, command, "--start", interval, "--output", "json"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 # draw the graph

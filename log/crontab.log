@@ -206,3 +206,4 @@ Pod create time : 2023-06-29 16:55:30
 456
 [('1697361994', 'tommy good', 1, 0), ('5740033148', '瑜楓 黃', 1, 0)]
 123
+Command '/snap/bin/microk8s.kubectl describe pods 169736199412-79b885fdd5-76h58 | grep Reason' returned non-zero exit status 1.
