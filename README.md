@@ -283,6 +283,10 @@
       - 輸入 `/ac` 可以查看自己的權限可使用的指令與說明
       ![](https://hackmd.io/_uploads/HJcuZHww3.jpg)
 
+<h2>Notes</h2>
+
+- 一些更詳細的設定及說明：https://hackmd.io/W-HNX7IGQJiZE1KAN1R1Cg?view#k8s-enviroment
+
 <h2>Job Assignment</h2>
 
 - 王冠權：架設 k8s、k8s 監控和自動通報
